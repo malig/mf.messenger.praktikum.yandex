@@ -1,0 +1,29 @@
+.search {
+    position: relative;
+}
+.search__input {
+    position: relative;
+    padding: 10px;
+    display: block;
+    width: 100%;
+    font-weight: 400;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.search__btn {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    border-radius: 0 5px 5px 0;
+    border: 0;
+}
+
+.search__btn:hover {
+    border: 0;
+    color: #555555;
+    opacity: 1;
+}
