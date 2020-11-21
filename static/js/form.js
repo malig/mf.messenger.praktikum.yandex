@@ -1,6 +1,9 @@
 function onClick() {
-    console.log([...document.forms[0].elements].reduce((acc,input) => {
+    const formValue = [...document.forms[0].elements].reduce((acc,input) => {
         const {name, value} = input;
-        return {...acc, [name]: value};
-    }, {}));
+        acc[name] = value;
+        return acc;
+    }, {});
+
+    console.log(formValue);
 }
