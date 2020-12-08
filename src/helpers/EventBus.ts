@@ -2,10 +2,10 @@
 export type Event = string;
 
 export type Listeners = {
-    [key: string]: Callback[]
+    [key: string]: (<T extends any[]>(...args: T)=>void)[]
 }
 
-export type Callback = <Payload>(payload?: Payload) => {}
+export type Callback<Args> = (...args: Args[]) => void
 
 export class EventBus {
     listeners: Listeners
@@ -14,7 +14,7 @@ export class EventBus {
         this.listeners = {};
     }
 
-    on(event: Event, callback: Callback) {
+    on<Args>(event: Event, callback: Callback<Args>) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
@@ -22,23 +22,25 @@ export class EventBus {
         this.listeners[event].push(callback);
     }
 
-    off(event: Event, callback: Callback) {
-        if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`);
-        }
+    off<Args>(event: Event, callback: Callback<Args>) {
+        this.checkEvent(event);
 
         this.listeners[event] = this.listeners[event].filter(
             listener => listener !== callback
         );
     }
 
-    emit<Payload>(event: Event, payload?: Payload) {
+    emit<Args>(event: Event, ...args: Args[]) {
+        this.checkEvent(event);
+
+        this.listeners[event].forEach(function(listener) {
+            listener(...args);
+        });
+    }
+
+    checkEvent(event: string) {
         if (!this.listeners[event]) {
             throw new Error(`Нет события: ${event}`);
         }
-
-        this.listeners[event].forEach(function(listener) {
-            listener<Payload>(payload);
-        });
     }
 }

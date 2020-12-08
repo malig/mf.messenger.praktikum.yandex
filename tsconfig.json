@@ -11,6 +11,7 @@
     "noUnusedParameters": true,
     "alwaysStrict": true,
     "lib": ["dom", "es6"],
-    "outDir": "static"
+    "outDir": "static",
+    "moduleResolution": "node"
   }
 }
