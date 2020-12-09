@@ -5,14 +5,16 @@ import { tpl } from './AuthPage.tpl.js';
 import { Button } from '../../components/Button/Button.js';
 class AuthPage extends Block {
     constructor() {
-        super(tpl, {
-            title: 'Авторизация',
+        super(tpl, { title: 'Авторизация' });
+    }
+    componentDidMount() {
+        this._children = {
             button: new Button({ title: 'Войти' })
-        });
-        this._validator = new Validation();
-        const validate = (e) => this._validator.validate([e.target]);
+        };
+        const validator = new Validation();
+        const validate = (e) => validator.validate([e.target]);
         const submit = (e) => {
-            const errorsCount = this._validator.validate(e.target.elements);
+            const errorsCount = validator.validate(e.target.elements);
             if (!!errorsCount) {
                 e.preventDefault();
             }
@@ -21,11 +23,13 @@ class AuthPage extends Block {
         window.eventBus.on(this.uniq(AuthPage.EVENTS.FOCUS), validate);
         window.eventBus.on(this.uniq(AuthPage.EVENTS.SUBMIT), submit);
     }
+    ;
     render() {
-        const { title, button } = this.props;
+        var _a;
+        const { title } = this.props;
         return this.compile({
             title,
-            button: button.render(),
+            button: (_a = this._children) === null || _a === void 0 ? void 0 : _a.button.render(),
             blurEventName: this.uniq(AuthPage.EVENTS.BLUR),
             focusEventName: this.uniq(AuthPage.EVENTS.FOCUS),
             submitEventName: this.uniq(AuthPage.EVENTS.SUBMIT),

@@ -6,8 +6,11 @@ import { Button } from '../../components/Button/Button.js';
 
 type ProfilePageProps = {
     title: string;
-    saveButton: Button;
-    cancelButton: Button;
+    saveButton?: string;
+    cancelButton?: string;
+    blurEventName?: string;
+    focusEventName?: string;
+    submitEventName?: string;
 }
 
 class ProfilePage extends Block<ProfilePageProps> {
@@ -18,19 +21,20 @@ class ProfilePage extends Block<ProfilePageProps> {
         SUBMIT: 'submit',
     };
 
-    _validator: Validation;
-
     constructor() {
-        super(tpl, {
-            title: 'Профиль',
+        super(tpl, { title: 'Профиль' });
+    }
+
+    componentDidMount() {
+        this._children = {
             saveButton: new Button({ title: 'Сохранить' }),
             cancelButton: new Button({ title: 'Отмена' }),
-        });
+        }
 
-        this._validator = new Validation();
-        const validate = (e: Event) => this._validator.validate([e.target as HTMLInputElement])
+        const validator = new Validation();
+        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
         const submit = (e: Event) => {
-            const errorsCount = this._validator.validate((e.target as HTMLFormElement).elements);
+            const errorsCount = validator.validate((e.target as HTMLFormElement).elements);
 
             if (!!errorsCount) {
                 e.preventDefault();
@@ -43,12 +47,12 @@ class ProfilePage extends Block<ProfilePageProps> {
     }
 
     render(): string {
-        const { title, saveButton, cancelButton } = this.props as ProfilePageProps;
+        const { title } = this.props;
 
         return this.compile({
             title,
-            saveButton: saveButton.render(),
-            cancelButton: cancelButton.render(),
+            saveButton: this._children?.saveButton.render(),
+            cancelButton: this._children?.cancelButton.render(),
             blurEventName: this.uniq(ProfilePage.EVENTS.BLUR),
             focusEventName: this.uniq(ProfilePage.EVENTS.FOCUS),
             submitEventName: this.uniq(ProfilePage.EVENTS.SUBMIT),

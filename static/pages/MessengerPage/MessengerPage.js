@@ -7,8 +7,10 @@ import { ChatList } from '../../components/ChatList/ChatList.js';
 import { Dropdown } from '../../components/Dropdown/Dropdown.js';
 class MessengerPage extends Block {
     constructor() {
-        super(tpl, {
-            title: 'Мессенджер',
+        super(tpl, { title: 'Мессенджер' });
+    }
+    componentDidMount() {
+        this._children = {
             search: new Search(),
             dropdown: new Dropdown(),
             chatList: new ChatList(),
@@ -21,17 +23,18 @@ class MessengerPage extends Block {
                 className: 'btn_ico',
                 onClick: () => document.location.href = '/pages/ProfilePage'
             })
-        });
+        };
     }
     render() {
-        const { title, sendButton, profileButton, search, chatList, dropdown } = this.props;
+        var _a, _b, _c, _d, _e;
+        const { title } = this.props;
         return this.compile({
             title,
-            sendButton: sendButton.render(),
-            profileButton: profileButton.render(),
-            search: search.render(),
-            chatList: chatList.render(),
-            dropdown: dropdown.render()
+            sendButton: (_a = this._children) === null || _a === void 0 ? void 0 : _a.sendButton.render(),
+            profileButton: (_b = this._children) === null || _b === void 0 ? void 0 : _b.profileButton.render(),
+            search: (_c = this._children) === null || _c === void 0 ? void 0 : _c.search.render(),
+            chatList: (_d = this._children) === null || _d === void 0 ? void 0 : _d.chatList.render(),
+            dropdown: (_e = this._children) === null || _e === void 0 ? void 0 : _e.dropdown.render()
         });
     }
 }

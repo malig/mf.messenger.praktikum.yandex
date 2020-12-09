@@ -5,15 +5,17 @@ import { Validation } from '../../helpers/Validation.js';
 import { Button } from '../../components/Button/Button.js';
 class ProfilePage extends Block {
     constructor() {
-        super(tpl, {
-            title: 'Профиль',
+        super(tpl, { title: 'Профиль' });
+    }
+    componentDidMount() {
+        this._children = {
             saveButton: new Button({ title: 'Сохранить' }),
             cancelButton: new Button({ title: 'Отмена' }),
-        });
-        this._validator = new Validation();
-        const validate = (e) => this._validator.validate([e.target]);
+        };
+        const validator = new Validation();
+        const validate = (e) => validator.validate([e.target]);
         const submit = (e) => {
-            const errorsCount = this._validator.validate(e.target.elements);
+            const errorsCount = validator.validate(e.target.elements);
             if (!!errorsCount) {
                 e.preventDefault();
             }
@@ -23,11 +25,12 @@ class ProfilePage extends Block {
         window.eventBus.on(this.uniq(ProfilePage.EVENTS.SUBMIT), submit);
     }
     render() {
-        const { title, saveButton, cancelButton } = this.props;
+        var _a, _b;
+        const { title } = this.props;
         return this.compile({
             title,
-            saveButton: saveButton.render(),
-            cancelButton: cancelButton.render(),
+            saveButton: (_a = this._children) === null || _a === void 0 ? void 0 : _a.saveButton.render(),
+            cancelButton: (_b = this._children) === null || _b === void 0 ? void 0 : _b.cancelButton.render(),
             blurEventName: this.uniq(ProfilePage.EVENTS.BLUR),
             focusEventName: this.uniq(ProfilePage.EVENTS.FOCUS),
             submitEventName: this.uniq(ProfilePage.EVENTS.SUBMIT),

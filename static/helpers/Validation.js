@@ -31,7 +31,7 @@ export class Validation {
     validate(inputList) {
         return [].reduce.call(inputList, (count, input) => {
             const errors = this._validate(input);
-            return count + errors.length;
+            return Number(count) + errors.length;
         }, 0);
     }
     _validate(input) {

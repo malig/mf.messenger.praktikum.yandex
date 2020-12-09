@@ -39,9 +39,9 @@ export class Validation {
     }
 
     validate(inputList: HTMLInputElement[] | HTMLFormControlsCollection) {
-        return [].reduce.call(inputList, (count: number, input: HTMLInputElement) => {
+        return [].reduce.call(inputList, (count, input: HTMLInputElement) => {
             const errors = this._validate(input);
-            return count + errors.length;
+            return Number(count) + errors.length;
         }, 0);
     }
 

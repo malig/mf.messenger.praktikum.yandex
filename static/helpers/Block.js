@@ -2,6 +2,7 @@ import { EventBus } from './EventBus.js';
 import { TplCompiler } from './TplCompiler.js';
 export class Block {
     constructor(tpl, props, tplCompiler = new TplCompiler()) {
+        this._children = null;
         this.setProps = (nextProps) => {
             if (!nextProps) {
                 return;
@@ -10,6 +11,7 @@ export class Block {
         };
         this._id = new Date().getTime();
         this._meta = { tpl, props };
+        this._element = this._createDocumentElement('div');
         this.props = this._makePropsProxy(props);
         const eventBus = new EventBus();
         this.eventBus = () => eventBus;
@@ -24,15 +26,7 @@ export class Block {
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     }
     init() {
-        this._createResources();
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-    }
-    _createResources() {
-        /**
-         * Мне не нравится идея, что есть врапер, а внутри еще шаблон, компонент должен полностью рисоваться в рендере,
-         * но я пока не знаю, как полностью избавится от обертки, поэтому пока у всех div
-         * */
-        this._element = this._createDocumentElement('div');
     }
     _createDocumentElement(tagName) {
         return document.createElement(tagName);

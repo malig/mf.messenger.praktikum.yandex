@@ -6,7 +6,10 @@ import { Validation } from '../../helpers/Validation.js';
 
 type RegistrationPageProps = {
     title: string;
-    button: Button
+    button?: string;
+    blurEventName?: string;
+    focusEventName?: string;
+    submitEventName?: string;
 }
 
 class RegistrationPage extends Block<RegistrationPageProps> {
@@ -17,18 +20,19 @@ class RegistrationPage extends Block<RegistrationPageProps> {
         SUBMIT: 'submit',
     };
 
-    _validator: Validation;
-
     constructor() {
-        super(tpl, {
-            title: 'Регистрация',
-            button: new Button({ title: 'Зарегистрироваться', className: 'full-width' })
-        });
+        super(tpl, { title: 'Регистрация' });
+    }
 
-        this._validator = new Validation();
-        const validate = (e: Event) => this._validator.validate([e.target as HTMLInputElement])
+    componentDidMount() {
+        this._children = {
+            button: new Button({ title: 'Зарегистрироваться', className: 'full-width' })
+        }
+
+        const validator = new Validation();
+        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
         const submit = (e: Event) => {
-            const errorsCount = this._validator.validate((e.target as HTMLFormElement).elements);
+            const errorsCount = validator.validate((e.target as HTMLFormElement).elements);
 
             if (!!errorsCount) {
                 e.preventDefault();
@@ -41,11 +45,11 @@ class RegistrationPage extends Block<RegistrationPageProps> {
     }
 
     render(): string {
-        const { title, button } = this.props as RegistrationPageProps;
+        const { title } = this.props;
 
         return this.compile({
             title,
-            button: button.render(),
+            button: this._children?.button.render(),
             blurEventName: this.uniq(RegistrationPage.EVENTS.BLUR),
             focusEventName: this.uniq(RegistrationPage.EVENTS.FOCUS),
             submitEventName: this.uniq(RegistrationPage.EVENTS.SUBMIT),

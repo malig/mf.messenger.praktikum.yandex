@@ -6,7 +6,7 @@ interface IMeta<Props> {
     props: Props;
 }
 
-export class Block<Props> {
+export class Block<Props extends Object> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
@@ -17,14 +17,16 @@ export class Block<Props> {
     _id: number
     _meta: IMeta<Props>;
     _element: HTMLElement;
+    _children: {[key: string]: Block<any>} | null = null;
 
     tplCompiler: () => ITplCompiler;
     eventBus: () => EventBus;
-    props: Object | Props;
+    props: Props;
 
     constructor(tpl: string, props: Props, tplCompiler: ITplCompiler = new TplCompiler()) {
         this._id = new Date().getTime();
         this._meta = { tpl, props };
+        this._element = this._createDocumentElement('div');
 
         this.props = this._makePropsProxy(props);
 
@@ -45,16 +47,7 @@ export class Block<Props> {
     }
 
     init() {
-        this._createResources();
         this.eventBus().emit(Block.EVENTS.FLOW_CDM);
-    }
-
-    _createResources() {
-        /**
-         * Мне не нравится идея, что есть врапер, а внутри еще шаблон, компонент должен полностью рисоваться в рендере,
-         * но я пока не знаю, как полностью избавится от обертки, поэтому пока у всех div
-         * */
-        this._element = this._createDocumentElement('div');
     }
 
     _createDocumentElement(tagName: string): HTMLElement {
@@ -69,7 +62,7 @@ export class Block<Props> {
         return this.compile(this.props);
     }
 
-    compile(props: Props | Object): string {
+    compile(props: Props): string {
         return this.tplCompiler().compile(this._meta.tpl, props);
     }
 
@@ -77,10 +70,10 @@ export class Block<Props> {
         return this.element;
     }
 
-    _makePropsProxy(props: Props): Object {
+    _makePropsProxy(props: Props) {
         const self = this;
 
-        return new Proxy<Object>(props, {
+        return new Proxy<Props>(props, {
             set(target, prop, value) {
                 target[prop as keyof typeof target] = value;
 

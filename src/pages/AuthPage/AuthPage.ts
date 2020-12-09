@@ -6,7 +6,10 @@ import { Button } from '../../components/Button/Button.js';
 
 type AuthPageProps = {
     title: string;
-    button: Button
+    button?: string;
+    blurEventName?: string;
+    focusEventName?: string;
+    submitEventName?: string;
 }
 
 class AuthPage extends Block<AuthPageProps> {
@@ -17,18 +20,19 @@ class AuthPage extends Block<AuthPageProps> {
         SUBMIT: 'submit',
     };
 
-    _validator: Validation;
-
     constructor() {
-        super(tpl,{
-            title: 'Авторизация',
-            button: new Button({ title: 'Войти' })
-        });
+        super(tpl,{ title: 'Авторизация' });
+    }
 
-        this._validator = new Validation();
-        const validate = (e: Event) => this._validator.validate([e.target as HTMLInputElement])
+    componentDidMount() {
+        this._children = {
+            button: new Button({ title: 'Войти' })
+        }
+
+        const validator = new Validation();
+        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
         const submit = (e: Event) => {
-            const errorsCount = this._validator.validate((e.target as HTMLFormElement).elements);
+            const errorsCount = validator.validate((e.target as HTMLFormElement).elements);
 
             if (!!errorsCount) {
                 e.preventDefault();
@@ -38,14 +42,14 @@ class AuthPage extends Block<AuthPageProps> {
         window.eventBus.on(this.uniq(AuthPage.EVENTS.BLUR), validate);
         window.eventBus.on(this.uniq(AuthPage.EVENTS.FOCUS), validate);
         window.eventBus.on(this.uniq(AuthPage.EVENTS.SUBMIT), submit);
-    }
+    };
 
     render(): string {
-        const { title, button } = this.props as AuthPageProps;
+        const { title } = this.props;
 
         return this.compile({
             title,
-            button: button.render(),
+            button: this._children?.button.render(),
             blurEventName: this.uniq(AuthPage.EVENTS.BLUR),
             focusEventName: this.uniq(AuthPage.EVENTS.FOCUS),
             submitEventName: this.uniq(AuthPage.EVENTS.SUBMIT),

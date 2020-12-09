@@ -6,6 +6,7 @@ type ButtonProps = {
     onClick?: () => void;
     className?: string;
     faIco?: string;
+    clickEventName?: string;
 }
 
 export class Button extends Block<ButtonProps> {
@@ -22,7 +23,7 @@ export class Button extends Block<ButtonProps> {
     }
 
     render(): string {
-        const { title, className = '', faIco } = this.props as ButtonProps;
+        const { title, className = '', faIco } = this.props;
 
         return this.compile({
             title,

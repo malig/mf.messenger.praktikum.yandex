@@ -12,6 +12,7 @@
     "alwaysStrict": true,
     "lib": ["dom", "es6"],
     "outDir": "static",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "strict": true
   }
 }

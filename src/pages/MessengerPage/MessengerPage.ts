@@ -8,17 +8,20 @@ import { Dropdown } from '../../components/Dropdown/Dropdown.js';
 
 type MessengerPageProps = {
     title: string;
-    sendButton: Button;
-    profileButton: Button;
-    search: Search;
-    chatList: ChatList;
-    dropdown: Dropdown;
+    sendButton?: string;
+    profileButton?: string;
+    search?: string;
+    chatList?: string;
+    dropdown?: string;
 }
 
 class MessengerPage extends Block<MessengerPageProps> {
     constructor() {
-        super(tpl, {
-            title: 'Мессенджер',
+        super(tpl, { title: 'Мессенджер' });
+    }
+
+    componentDidMount() {
+        this._children = {
             search: new Search(),
             dropdown: new Dropdown(),
             chatList: new ChatList(),
@@ -31,19 +34,19 @@ class MessengerPage extends Block<MessengerPageProps> {
                 className: 'btn_ico',
                 onClick: () => document.location.href = '/pages/ProfilePage'
             })
-        });
+        }
     }
 
     render(): string {
-        const { title, sendButton, profileButton, search, chatList, dropdown } = this.props as MessengerPageProps;
+        const { title } = this.props;
 
         return this.compile({
             title,
-            sendButton: sendButton.render(),
-            profileButton: profileButton.render(),
-            search: search.render(),
-            chatList: chatList.render(),
-            dropdown: dropdown.render()
+            sendButton: this._children?.sendButton.render(),
+            profileButton: this._children?.profileButton.render(),
+            search: this._children?.search.render(),
+            chatList: this._children?.chatList.render(),
+            dropdown: this._children?.dropdown.render()
         });
     }
 }
