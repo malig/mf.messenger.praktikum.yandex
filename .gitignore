@@ -5,4 +5,5 @@
 
 # custom
 .idea
-/static/
+/static/**/*.js
+/static/**/*.map

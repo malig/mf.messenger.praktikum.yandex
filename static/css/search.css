@@ -1,0 +1,16 @@
+.search {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    display: flex;
+}
+.search__input {
+    padding: 10px;
+    font-weight: 400;
+    line-height: 1.5;
+    box-sizing: border-box;
+}
+
+.search__btn:hover {
+    border: 0;
+    color: #555555;
+}
