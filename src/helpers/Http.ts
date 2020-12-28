@@ -20,13 +20,11 @@ const postHeaders = {
 export class Http {
     _url: string
 
-    constructor(url: string = '') {
+    constructor(url: string) {
         this._url = url;
     }
 
-    request = <Data>(url: string, options: Options<Data>) => {
-        const { method, data, headers } = options;
-
+    request = <Data>(url: string, { method, data, headers }: Options<Data>) => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
@@ -63,7 +61,7 @@ export class Http {
     };
     get = <Data>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
         const { data } = options;
-        let requestUrl = this.getUrl(url);
+        let requestUrl = this.buildUrl(url);
         requestUrl = data ? `${requestUrl}?${queryString(data)}` : requestUrl;
 
         const requestParams = { ...options, method: METHODS.GET };
@@ -72,27 +70,27 @@ export class Http {
     };
 
     post = <Data>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
-        const requestUrl = this.getUrl(url);
+        const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.POST };
 
         return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
     put = <Data>(url: string, options: Omit<Options<Data>, 'method'>) => {
-        const requestUrl = this.getUrl(url);
+        const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.PUT };
 
         return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
     delete = <Data>(url: string, options: Omit<Options<Data>, 'method'>) => {
-        const requestUrl = this.getUrl(url);
+        const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.DELETE };
 
         return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
-    getUrl(url: string) {
+    buildUrl(url: string) {
         return `${this._url}${url}`;
     }
 }
