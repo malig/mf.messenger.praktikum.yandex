@@ -10,7 +10,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "alwaysStrict": true,
-    "lib": ["dom", "es6"],
+    "lib": ["dom", "es6", "es2017"],
     "outDir": "static",
     "moduleResolution": "node",
     "strict": true

@@ -1,0 +1,162 @@
+@import "variables";
+
+/*
+Я понимаю, что тут еще декомпозировать и декомпозировать
+Чтобы грамотно все раскидать, придется еще и js разбить на кучу атомарных компонентов.
+С переменными нужно поработать, продумать...
+К сожалению у меня нет столько много времени.
+*/
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-weight: 400;
+  font-size: @font-size-l;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #555555;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef3f8;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin: 0;
+}
+
+input {
+  width: 300px;
+  display: block;
+  border: 1px solid #ced4da;
+  padding: 15px;
+  border-radius: 5px;
+
+  &:hover,
+  &:focus{
+    border-color: @main-color;
+    outline: none;
+  }
+}
+
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+.card {
+  background: @main-light-bg-color;
+  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
+  padding: 30px;
+
+  &__footer {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.form-control {
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-size: @font-size-s;
+  font-weight: 600;
+}
+
+.ava {
+  width: 60px;
+  height: 60px;
+  background-color: @border-color;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+
+  &__label {
+    position: relative;
+    left: 100%;
+    margin-left: 10px;
+    font-weight: 600;
+  }
+
+  &_small {
+    width: 40px;
+    height: 40px;
+  }
+
+  &_edit {
+    display: inline-block;
+  }
+
+  &_edit:hover {
+    cursor: pointer;
+    color: inherit;
+  }
+}
+
+.error {
+  font-size: 120px;
+  color: #ec0343;
+}
+
+/**/
+.input-fill {
+  background-color: @border-color;
+  border: 1px solid transparent;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.zero-padding {
+  padding: 0;
+}
+
+.zero-margin {
+  margin: 0;
+}
+
+.zero-border {
+  border: 0;
+}
+
+.clip {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-list {
+  margin: 0;
+}
+
+.error-list__item {
+  color: #ec0343;
+  font-size: @font-size-s;
+  font-weight: bold;
+}
+
+@import "../pages/MessengerPage/MessengerPage";
+@import "../pages/ProfilePage/ProfilePage";
+@import "../components/ChatList/ChatList";
+@import "../components/Dropdown/Dropdown";
+@import "../components/Button/Button";
+@import "../components/AddChat/AddChat";
+@import "../components/Dialog/Dialog";

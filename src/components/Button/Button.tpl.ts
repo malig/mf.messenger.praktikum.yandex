@@ -1,5 +1,5 @@
 export const tpl = `
-    <button class="{{ className }}" onclick="eventBus.emit('{{ clickEventName }}')">       
+    <button class="{{ className }}" onclick="eventBus.emit('{{ clickEventName }}', event)">       
         {{#if title}}
             {{ title }}
         {{else if faIco}}

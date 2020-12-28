@@ -1,18 +1,15 @@
 import { Block } from '../../helpers/Block.js';
 import { Validation } from '../../helpers/Validation.js';
-import { render } from '../../helpers/utils.js';
 import { tpl } from './AuthPage.tpl.js';
 import { Button } from '../../components/Button/Button.js';
+import { router, PATH, authController } from '../../app.js';
+import { AuthFormModel } from './AuthFormModel.js';
 
 type AuthPageProps = {
     title: string;
-    button?: string;
-    blurEventName?: string;
-    focusEventName?: string;
-    submitEventName?: string;
 }
 
-class AuthPage extends Block<AuthPageProps> {
+export class AuthPage extends Block<AuthPageProps> {
     static EVENTS = {
         ...Block.EVENTS,
         BLUR: 'blur',
@@ -26,16 +23,24 @@ class AuthPage extends Block<AuthPageProps> {
 
     componentDidMount() {
         this._children = {
-            button: new Button({ title: 'Войти' })
+            button: new Button({ title: 'Войти' }),
+            registrationButton: new Button({
+                title: 'Регистрация',
+                onClick: () => router.go(PATH.REGISTRATION)
+            })
         }
 
         const validator = new Validation();
         const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
         const submit = (e: Event) => {
-            const errorsCount = validator.validate((e.target as HTMLFormElement).elements);
+            e.preventDefault();
 
-            if (!!errorsCount) {
-                e.preventDefault();
+            const form = e.target as HTMLFormElement;
+            const errorsCount = validator.validate(form.elements);
+
+            if (!errorsCount) {
+                const formData = new FormData(form);
+                authController.login(new AuthFormModel(formData));
             }
         };
 
@@ -45,16 +50,16 @@ class AuthPage extends Block<AuthPageProps> {
     };
 
     render(): string {
+        const { button, registrationButton } = this._children;
         const { title } = this.props;
 
         return this.compile({
             title,
-            button: this._children?.button.render(),
+            button: button.render(),
+            registrationButton: registrationButton.render(),
             blurEventName: this.uniq(AuthPage.EVENTS.BLUR),
             focusEventName: this.uniq(AuthPage.EVENTS.FOCUS),
             submitEventName: this.uniq(AuthPage.EVENTS.SUBMIT),
         });
     }
 }
-
-render('.app', new AuthPage());

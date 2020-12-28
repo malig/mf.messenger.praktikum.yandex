@@ -15,10 +15,10 @@ interface IRules {
 const defaultRules = {
     'first_name': [Rule.Required, Rule.LessThanThree],
     'second_name': [Rule.Required, Rule.LessThanThree],
-    'display_name': [Rule.Required, Rule.LessThanThree],
+    'display_name': [],
     'login': [Rule.Required],
     'email': [Rule.Email],
-    'password': [Rule.Pass],
+    'password': [],
     'phone': [Rule.Phone]
 };
 

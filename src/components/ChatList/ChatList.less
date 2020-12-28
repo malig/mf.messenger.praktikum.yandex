@@ -1,0 +1,75 @@
+@import "src/less/variables";
+
+.chat-list {
+  margin: 15px 0 0;
+  padding-left: 0;
+}
+
+.chat {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid @border-color;
+  padding: 0 5px;
+
+  &:hover {
+    background-color: #fefcf8;
+    cursor: pointer;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid @border-color;
+  }
+
+  &__body {
+    flex-grow: 2;
+    margin-left: 10px;
+    width: 200px
+  }
+
+  &__info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__name {
+    font-size: @font-size-l;
+    font-weight: bold;
+  }
+
+  &__last-message {
+    font-size: @font-size-s;
+    color: #999999;
+  }
+
+  &__time {
+    font-size: @font-size-s;
+    color: #999999;
+  }
+
+  &__close {
+    color: #999999;
+    opacity: 0.5;
+    margin: 3px 0 0 10px;
+  }
+
+  &__close:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &__missed-message-count {
+    font-size: @font-size-l;
+    line-height: 25px;
+    font-weight: bold;
+    background-color: @main-color;
+    color: #ffffff;
+    border-radius: 50%;
+    text-align: center;
+    width: 25px;
+    height: 25px;
+    margin-top: 10px;
+  }
+}

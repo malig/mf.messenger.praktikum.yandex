@@ -3,7 +3,7 @@
 
 In the project directory, you can run:
 
-### `node ./server.js`
+### `npm start`
 
 <br>
 Open http://localhost:4000 to view it in the browser.

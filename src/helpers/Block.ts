@@ -6,6 +6,8 @@ interface IMeta<Props> {
     props: Props;
 }
 
+type Children = {[key: string]: Block<any>};
+
 export class Block<Props extends Object> {
     static EVENTS = {
         INIT: 'init',
@@ -17,7 +19,7 @@ export class Block<Props extends Object> {
     _id: number
     _meta: IMeta<Props>;
     _element: HTMLElement;
-    _children: {[key: string]: Block<any>} | null = null;
+    _children: Children = {} as Children;
 
     tplCompiler: () => ITplCompiler;
     eventBus: () => EventBus;
@@ -58,11 +60,11 @@ export class Block<Props extends Object> {
         this._element.innerHTML = this.render();
     }
 
-    render(): string {
-        return this.compile(this.props);
+    render(props?: Props): string {
+        return this.compile(props || this.props);
     }
 
-    compile(props: Props): string {
+    compile<T>(props: T): string {
         return this.tplCompiler().compile(this._meta.tpl, props);
     }
 
@@ -108,7 +110,7 @@ export class Block<Props extends Object> {
         return oldProps !== newProps;
     }
 
-    setProps = (nextProps: {[key: string]: string}) => {
+    setProps = (nextProps: {[key: string]: any}) => {
         if (!nextProps) {
             return;
         }
@@ -126,5 +128,9 @@ export class Block<Props extends Object> {
 
     uniq(str: string) {
         return `${str}:${this.id}`;
+    }
+
+    destroy() {
+
     }
 }

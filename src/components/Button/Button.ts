@@ -3,10 +3,9 @@ import { tpl } from './Button.tpl.js';
 
 type ButtonProps = {
     title?: string;
-    onClick?: () => void;
+    onClick?: (e: Event) => void;
     className?: string;
     faIco?: string;
-    clickEventName?: string;
 }
 
 export class Button extends Block<ButtonProps> {

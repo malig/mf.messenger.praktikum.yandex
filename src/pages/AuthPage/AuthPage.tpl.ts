@@ -4,10 +4,7 @@ export const tpl = `
             <h2>{{ title }}</h2>
         </header>
         
-        <form 
-            action="/pages/MessengerPage"
-            onsubmit="eventBus.emit('{{ submitEventName }}', event)"         
-        >
+        <form onsubmit="eventBus.emit('{{ submitEventName }}', event)">
             <div class="form-control">
                 <label>Логин:</label>
                 <input 
@@ -28,9 +25,8 @@ export const tpl = `
                 />
             </div>
             
-            <div class="card__footer">
-                <a href="/pages/RegistrationPage" target="_blank">Регистрация</a>
-                
+            <div class="card__footer">                
+                {{{ registrationButton }}}
                 {{{ button }}}
             </div>
         </form>        

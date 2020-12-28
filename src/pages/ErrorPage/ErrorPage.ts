@@ -1,5 +1,4 @@
 import { Block } from '../../helpers/Block.js';
-import { render } from '../../helpers/utils.js';
 import { tpl } from './ErrorPage.tpl.js';
 
 type ErrorPageProps = {
@@ -7,13 +6,11 @@ type ErrorPageProps = {
     code: number
 }
 
-class ErrorPage extends Block<ErrorPageProps> {
-    constructor(props: ErrorPageProps) {
-        super(tpl, props);
+export class ErrorPage extends Block<ErrorPageProps> {
+    constructor() {
+        super(tpl, {
+            title: 'Ты только не расстраивайся',
+            code: 404
+        });
     }
 }
-
-render('.app', new ErrorPage({
-    title: 'Ты только не расстраивайся',
-    code: 404
-}));

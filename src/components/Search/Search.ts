@@ -15,7 +15,7 @@ export class Search extends Block<SearchProps> {
         this._children = {
             button: new Button({
                 faIco: 'fa-search',
-                className: 'btn_ico search__btn zero-border',
+                className: 'btn_ico input-btn__btn zero-border',
             }),
         }
     }

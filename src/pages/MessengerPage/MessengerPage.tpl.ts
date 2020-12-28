@@ -2,13 +2,15 @@ export const tpl = `
     <section class="card layout">
         <div class="left">
             <section class="toolbar zero-border">
+                {{{ logoutButton }}}
+                
                 <h3>Андриенко Алексей</h3>
         
                 {{{ profileButton }}}
             </section>
         
             <section class="content">
-                {{{ search }}}
+                {{{ addChat }}}
         
                 {{{ chatList }}}
             </section>

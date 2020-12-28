@@ -4,10 +4,7 @@ export const tpl = `
             <h2>{{ title }}</h2>
         </header>
         
-        <form 
-            action="/pages/AuthPage"
-            onsubmit="eventBus.emit('{{ submitEventName }}', event)"             
-        >
+        <form onsubmit="eventBus.emit('{{ submitEventName }}', event)">
             <div class="form-control">
                 <label>Имя:</label>
                 <input 

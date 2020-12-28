@@ -1,6 +1,6 @@
 export const tpl = `
-    <section class="modal">
-        <div class="modal__content card text-center">
+    <section class="dialog">
+        <div class="dialog__content card text-center">
             <header class="text-center">
                 <h2>{{ title }}</h2>
             </header>

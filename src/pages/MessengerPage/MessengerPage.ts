@@ -1,30 +1,31 @@
 import { Block } from '../../helpers/Block.js';
-import { render } from '../../helpers/utils.js';
 import { tpl } from './MessengerPage.tpl.js';
 import { Button } from '../../components/Button/Button.js';
-import { Search } from '../../components/Search/Search.js';
+import { AddChat } from '../../components/AddChat/AddChat.js';
 import { ChatList } from '../../components/ChatList/ChatList.js';
 import { Dropdown } from '../../components/Dropdown/Dropdown.js';
+import {chatsController, router, PATH, authController} from '../../app.js';
+import { Chat } from '../../api/ChatsApi.js';
 
 type MessengerPageProps = {
-    title: string;
-    sendButton?: string;
-    profileButton?: string;
-    search?: string;
-    chatList?: string;
-    dropdown?: string;
+    chats: Chat[];
 }
 
-class MessengerPage extends Block<MessengerPageProps> {
+export class MessengerPage extends Block<MessengerPageProps> {
     constructor() {
-        super(tpl, { title: 'Мессенджер' });
+        super(tpl, { chats: [] });
     }
 
     componentDidMount() {
         this._children = {
-            search: new Search(),
+            chatList: new ChatList({
+                chats: [],
+                onChatDelete: (chatId => chatsController.deleteChat(chatId))
+            }),
+            addChat: new AddChat({
+                onChange: (chatTitle) => chatsController.createChat(chatTitle)
+            }),
             dropdown: new Dropdown(),
-            chatList: new ChatList(),
             sendButton: new Button({
                 faIco: 'fa-paper-plane-o',
                 className: 'btn_round',
@@ -32,23 +33,39 @@ class MessengerPage extends Block<MessengerPageProps> {
             profileButton: new Button({
                 faIco: 'fa-bars',
                 className: 'btn_ico',
-                onClick: () => document.location.href = '/pages/ProfilePage'
+                onClick: () => router.go(PATH.PROFILE)
+            }),
+            logoutButton: new Button({
+                faIco: 'fa-sign-out',
+                className: 'btn_ico',
+                onClick: () => authController.logout()
             })
         }
+
+        chatsController.on(({ chats }) => {
+            this.setProps({ chats })
+        })
+
+        chatsController.fetchChats();
     }
 
     render(): string {
-        const { title } = this.props;
+        const {
+            chatList,
+            addChat,
+            sendButton,
+            profileButton,
+            logoutButton,
+            dropdown
+        } = this._children;
 
         return this.compile({
-            title,
-            sendButton: this._children?.sendButton.render(),
-            profileButton: this._children?.profileButton.render(),
-            search: this._children?.search.render(),
-            chatList: this._children?.chatList.render(),
-            dropdown: this._children?.dropdown.render()
+            chatList: chatList.render({ chats: this.props.chats }),
+            addChat: addChat.render(),
+            sendButton: sendButton.render(),
+            profileButton: profileButton.render(),
+            logoutButton: logoutButton.render(),
+            dropdown: dropdown.render()
         });
     }
 }
-
-render('.app', new MessengerPage());

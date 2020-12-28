@@ -23,24 +23,22 @@ export class EventBus {
     }
 
     off<Args>(event: Event, callback: Callback<Args>) {
-        this.checkEvent(event);
+        const listeners = this.listeners[event]
 
-        this.listeners[event] = this.listeners[event].filter(
-            listener => listener !== callback
-        );
+        if (listeners) {
+            this.listeners[event] = listeners.filter(
+                listener => listener !== callback
+            );
+        }
     }
 
     emit<Args>(event: Event, ...args: Args[]) {
-        this.checkEvent(event);
+        const listeners = this.listeners[event]
 
-        this.listeners[event].forEach(function(listener) {
-            listener(...args);
-        });
-    }
-
-    checkEvent(event: string) {
-        if (!this.listeners[event]) {
-            throw new Error(`Нет события: ${event}`);
+        if (listeners) {
+            listeners.forEach(function(listener) {
+                listener(...args);
+            });
         }
     }
 }
