@@ -17,7 +17,7 @@ export var PATH;
     PATH["PROFILE"] = "/profile";
     PATH["MESSENGER"] = "/messenger";
     PATH["ERROR"] = "/error";
-    PATH["NOT_FOUND"] = "/404";
+    PATH["NOT_FOUND"] = "/not-found";
 })(PATH || (PATH = {}));
 const store = new Store();
 export const chatsController = new ChatsController(store, 'chatsController');
