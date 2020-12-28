@@ -9,12 +9,8 @@ function isPlainObject(value: unknown): value is PlainObject {
         && Object.prototype.toString.call(value) === '[object Object]';
 }
 
-function isArray(value: unknown): value is [] {
-    return Array.isArray(value);
-}
-
 function isArrayOrObject(value: unknown): value is [] | PlainObject {
-    return isPlainObject(value) || isArray(value);
+    return isPlainObject(value) || Array.isArray(value);
 }
 
 function getKey(key: string, parentKey?: string) {
@@ -22,17 +18,15 @@ function getKey(key: string, parentKey?: string) {
 }
 
 function getParams(data: PlainObject | [], parentKey?: string) {
-    const result: [string, string][] = [];
-
-    for(const [key, value] of Object.entries(data)) {
+    return Object.entries(data).reduce<[string, string][]>((acc, [key, value]) => {
         if (isArrayOrObject(value)) {
-            result.push(...getParams(value, getKey(key, parentKey)));
+            acc.push(...getParams(value, getKey(key, parentKey)));
         } else {
-            result.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
+            acc.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
         }
-    }
 
-    return result;
+        return acc;
+    }, []);
 }
 
 export function queryString(data: unknown) {
