@@ -18,7 +18,7 @@ const createRouter = (selector, needNew = false) => {
     if (needNew) {
         Router.__instance = undefined;
     }
-    return new Router(selector);
+    return new Router(selector, '/');
 };
 describe('Routing', () => {
     jsdom({ url: 'http://localhost' });

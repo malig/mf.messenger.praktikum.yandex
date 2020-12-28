@@ -4,26 +4,22 @@ function isPlainObject(value) {
         && value.constructor === Object
         && Object.prototype.toString.call(value) === '[object Object]';
 }
-function isArray(value) {
-    return Array.isArray(value);
-}
 function isArrayOrObject(value) {
-    return isPlainObject(value) || isArray(value);
+    return isPlainObject(value) || Array.isArray(value);
 }
 function getKey(key, parentKey) {
     return parentKey ? `${parentKey}[${key}]` : key;
 }
 function getParams(data, parentKey) {
-    const result = [];
-    for (const [key, value] of Object.entries(data)) {
+    return Object.entries(data).reduce((acc, [key, value]) => {
         if (isArrayOrObject(value)) {
-            result.push(...getParams(value, getKey(key, parentKey)));
+            acc.push(...getParams(value, getKey(key, parentKey)));
         }
         else {
-            result.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
+            acc.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
         }
-    }
-    return result;
+        return acc;
+    }, []);
 }
 export function queryString(data) {
     if (!isPlainObject(data)) {

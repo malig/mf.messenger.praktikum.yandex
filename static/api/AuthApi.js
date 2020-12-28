@@ -1,7 +1,7 @@
 import { Http } from '../helpers/Http.js';
-import { BaseApi, baseUrl } from './BaseApi.js';
-const http = new Http(`${baseUrl}/auth`);
-export class AuthApi extends BaseApi {
+import { BASE_URL } from '../consts.js';
+const http = new Http(`${BASE_URL}/auth`);
+export class AuthApi {
     signup(user) {
         return http.post('/signup', { data: user });
     }

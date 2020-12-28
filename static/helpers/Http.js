@@ -10,9 +10,8 @@ const postHeaders = {
     headers: { 'content-type': 'application/json' },
 };
 export class Http {
-    constructor(url = '') {
-        this.request = (url, options) => {
-            const { method, data, headers } = options;
+    constructor(url) {
+        this.request = (url, { method, data, headers }) => {
             return new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.open(method, url);
@@ -48,29 +47,29 @@ export class Http {
         };
         this.get = (url, options = {}) => {
             const { data } = options;
-            let requestUrl = this.getUrl(url);
+            let requestUrl = this.buildUrl(url);
             requestUrl = data ? `${requestUrl}?${queryString(data)}` : requestUrl;
             const requestParams = Object.assign(Object.assign({}, options), { method: METHODS.GET });
             return this.request(requestUrl, requestParams).catch((error) => { throw (error); });
         };
         this.post = (url, options = {}) => {
-            const requestUrl = this.getUrl(url);
+            const requestUrl = this.buildUrl(url);
             const requestParams = Object.assign(Object.assign(Object.assign({}, postHeaders), options), { method: METHODS.POST });
             return this.request(requestUrl, requestParams).catch((error) => { throw (error); });
         };
         this.put = (url, options) => {
-            const requestUrl = this.getUrl(url);
+            const requestUrl = this.buildUrl(url);
             const requestParams = Object.assign(Object.assign(Object.assign({}, postHeaders), options), { method: METHODS.PUT });
             return this.request(requestUrl, requestParams).catch((error) => { throw (error); });
         };
         this.delete = (url, options) => {
-            const requestUrl = this.getUrl(url);
+            const requestUrl = this.buildUrl(url);
             const requestParams = Object.assign(Object.assign(Object.assign({}, postHeaders), options), { method: METHODS.DELETE });
             return this.request(requestUrl, requestParams).catch((error) => { throw (error); });
         };
         this._url = url;
     }
-    getUrl(url) {
+    buildUrl(url) {
         return `${this._url}${url}`;
     }
 }

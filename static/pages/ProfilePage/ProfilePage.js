@@ -44,7 +44,7 @@ export class ProfilePage extends Block {
             e.preventDefault();
             const form = e.target;
             const formData = new FormData(form);
-            userController.editAva(formData);
+            userController.editUserPic(formData);
         };
         const submitPass = (e) => {
             e.preventDefault();

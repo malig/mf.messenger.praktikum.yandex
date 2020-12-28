@@ -8,6 +8,7 @@ import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage.js';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage.js';
 import { MessengerPage } from './pages/MessengerPage/MessengerPage.js';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.js';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage.js';
 export var PATH;
 (function (PATH) {
     PATH["ROOT"] = "/";
@@ -16,6 +17,7 @@ export var PATH;
     PATH["PROFILE"] = "/profile";
     PATH["MESSENGER"] = "/messenger";
     PATH["ERROR"] = "/error";
+    PATH["NOT_FOUND"] = "/404";
 })(PATH || (PATH = {}));
 const store = new Store();
 export const chatsController = new ChatsController(store, 'chatsController');
@@ -26,7 +28,7 @@ store.init([
     authController,
     userController
 ]);
-export const router = new Router('.app');
+export const router = new Router('.app', PATH.NOT_FOUND);
 router
     .use(PATH.ROOT, AuthPage)
     .use(PATH.AUTH, AuthPage)
@@ -34,6 +36,7 @@ router
     .use(PATH.PROFILE, ProfilePage)
     .use(PATH.MESSENGER, MessengerPage)
     .use(PATH.ERROR, ErrorPage)
+    .use(PATH.NOT_FOUND, NotFoundPage)
     .start();
 authController.checkAuth();
 //# sourceMappingURL=app.js.map

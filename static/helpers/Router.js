@@ -24,7 +24,7 @@ class Route {
     }
 }
 export class Router {
-    constructor(domSelector) {
+    constructor(domSelector, notFoundUrl) {
         this.routes = [];
         if (Router.__instance) {
             return Router.__instance;
@@ -32,6 +32,7 @@ export class Router {
         this.routes = [];
         this.history = window.history;
         this._domSelector = domSelector;
+        this._notFoundUrl = notFoundUrl;
         Router.__instance = this;
     }
     use(url, page) {
@@ -52,7 +53,12 @@ export class Router {
             this._currentRoute.destroy();
         }
         this._currentRoute = route;
-        route === null || route === void 0 ? void 0 : route.render();
+        if (route) {
+            route.render();
+        }
+        else if (this._notFoundUrl) {
+            this.go(this._notFoundUrl);
+        }
     }
     getRoute(url) {
         return this.routes.find(route => route.match(url));

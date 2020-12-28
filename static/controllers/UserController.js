@@ -1,6 +1,6 @@
 import { Controller } from '../helpers/Controller.js';
 import { UserApi } from '../api/UserApi.js';
-import { host } from '../api/BaseApi.js';
+import { HOST } from '../consts.js';
 const userApi = new UserApi();
 var ACTION;
 (function (ACTION) {
@@ -20,7 +20,7 @@ export class UserController extends Controller {
         };
     }
     setUser(user) {
-        this.dispatch(ACTION.SET_USER, Object.assign(Object.assign({}, user), { avatar: `${host}${user.avatar}` }));
+        this.dispatch(ACTION.SET_USER, Object.assign(Object.assign({}, user), { avatar: `${HOST}${user.avatar}` }));
     }
     getUser(userId) {
         userApi.get(userId).then((user) => this.setUser(user));
@@ -31,8 +31,8 @@ export class UserController extends Controller {
     editPass(passFormModel) {
         userApi.editPass(passFormModel);
     }
-    editAva(avaForm) {
-        userApi.editAva(avaForm).then((user) => this.setUser(user));
+    editUserPic(userPic) {
+        userApi.editUserPic(userPic).then((user) => this.setUser(user));
     }
 }
 //# sourceMappingURL=UserController.js.map

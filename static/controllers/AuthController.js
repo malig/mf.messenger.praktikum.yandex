@@ -26,14 +26,16 @@ export class AuthController extends Controller {
         });
     }
     checkAuth() {
-        this.fetchUser().then(() => {
+        this.fetchUser()
+            .then(() => {
             if ([PATH.REGISTRATION, PATH.AUTH, PATH.ROOT].includes(router.location)) {
                 router.go(PATH.MESSENGER);
             }
             else {
                 router.go(router.location);
             }
-        }, () => router.go(PATH.AUTH));
+        })
+            .catch(() => router.go(PATH.AUTH));
     }
     logout() {
         authApi.logout().then(() => {
