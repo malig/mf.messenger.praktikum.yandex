@@ -1,0 +1,377 @@
+/*
+Я понимаю, что тут еще декомпозировать и декомпозировать
+Чтобы грамотно все раскидать, придется еще и js разбить на кучу атомарных компонентов.
+С переменными нужно поработать, продумать...
+К сожалению у меня нет столько много времени.
+*/
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #555555;
+}
+main {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef3f8;
+  box-sizing: border-box;
+}
+h2 {
+  margin: 0;
+}
+input {
+  width: 300px;
+  display: block;
+  border: 1px solid #ced4da;
+  padding: 15px;
+  border-radius: 5px;
+}
+input:hover,
+input:focus {
+  border-color: #72c02c;
+  outline: none;
+}
+button:focus {
+  outline: none;
+}
+.card {
+  background: #ffffff;
+  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 5px;
+  padding: 30px;
+}
+.card__footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-control {
+  margin-bottom: 30px;
+}
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+}
+.ava {
+  width: 60px;
+  height: 60px;
+  background-color: #ebedf0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  background-size: cover;
+}
+.ava__label {
+  position: relative;
+  left: 100%;
+  margin-left: 10px;
+  font-weight: 600;
+}
+.ava_small {
+  width: 40px;
+  height: 40px;
+}
+.ava_edit {
+  display: inline-block;
+}
+.ava_edit:hover {
+  cursor: pointer;
+  color: inherit;
+}
+.error {
+  font-size: 120px;
+  color: #ec0343;
+}
+/**/
+.input-fill {
+  background-color: #ebedf0;
+  border: 1px solid transparent;
+}
+.text-center {
+  text-align: center;
+}
+.full-width {
+  width: 100%;
+}
+.zero-padding {
+  padding: 0;
+}
+.zero-margin {
+  margin: 0;
+}
+.zero-border {
+  border: 0;
+}
+.clip {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.error-list {
+  margin: 0;
+}
+.error-list__item {
+  color: #ec0343;
+  font-size: 12px;
+  font-weight: bold;
+}
+.layout {
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  min-height: 900px;
+}
+.left {
+  width: 350px;
+  border-right: 1px solid #ebedf0;
+  position: relative;
+}
+.right {
+  width: 700px;
+  position: relative;
+}
+.toolbar {
+  position: absolute;
+  height: 60px;
+  border-bottom: 1px solid #ebedf0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  right: 10px;
+  left: 10px;
+}
+.content {
+  position: absolute;
+  top: 60px;
+  bottom: 65px;
+  right: 0;
+  left: 0;
+  padding: 10px;
+  overflow-y: auto;
+}
+.messages {
+  height: 100%;
+  width: 100%;
+  padding-left: 0;
+  margin: 0;
+}
+.message {
+  list-style-type: none;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 10px;
+}
+.message_from {
+  background-color: #edf7fb;
+  text-align: left;
+  margin-right: 20%;
+}
+.message_to {
+  background-color: #f5fbef;
+  text-align: right;
+  margin-left: 20%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  height: 60px;
+  right: 10px;
+  left: 10px;
+  border-top: 1px solid #ebedf0;
+  display: flex;
+  align-items: center;
+}
+.sending {
+  flex-grow: 2;
+  margin: 0 15px;
+  display: inherit;
+}
+.profile__content {
+  display: flex;
+  justify-content: center;
+}
+.profile__ava {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile_col-space {
+  margin-right: 30px;
+}
+.profile__header {
+  text-align: right;
+}
+.chat-list {
+  margin: 15px 0 0;
+  padding-left: 0;
+}
+.chat {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #ebedf0;
+  padding: 0 5px;
+}
+.chat:hover {
+  background-color: #fefcf8;
+  cursor: pointer;
+}
+.chat:last-child {
+  border-bottom: 1px solid #ebedf0;
+}
+.chat__body {
+  flex-grow: 2;
+  margin-left: 10px;
+  width: 200px;
+}
+.chat__info {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chat__name {
+  font-size: 14px;
+  font-weight: bold;
+}
+.chat__last-message {
+  font-size: 12px;
+  color: #999999;
+}
+.chat__time {
+  font-size: 12px;
+  color: #999999;
+}
+.chat__close {
+  color: #999999;
+  opacity: 0.5;
+  margin: 3px 0 0 10px;
+}
+.chat__close:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.chat__missed-message-count {
+  font-size: 14px;
+  line-height: 25px;
+  font-weight: bold;
+  background-color: #72c02c;
+  color: #ffffff;
+  border-radius: 50%;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  margin-top: 10px;
+}
+.dropdown {
+  position: relative;
+}
+.dropdown__menu-wrapper {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  z-index: 1;
+  display: none;
+}
+.dropdown:hover .dropdown__menu-wrapper {
+  display: block;
+}
+.dropdown__menu {
+  border: 1px solid #ced4da;
+  margin-top: 30px;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+  background-color: #ffffff;
+}
+.dropdown__menu-item {
+  list-style-type: none;
+  white-space: nowrap;
+  padding: 5px;
+}
+.dropdown__menu-item:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+.dropdown__menu-ico {
+  margin-right: 10px;
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  font-size: 14px;
+  padding: 15px 25px;
+  color: #ffffff;
+  background-color: #72c02c;
+  border-radius: 5px;
+}
+.btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+.btn_ico {
+  padding: 10px 15px;
+  color: #999999;
+  background-color: #ffffff;
+}
+.btn_ico:hover {
+  border: 1px solid #ced4da;
+}
+.btn_big-ico {
+  font-size: 30px;
+  border-radius: 50px;
+  padding: 0;
+  color: #72c02c;
+  background-color: #ffffff;
+  border: 0;
+}
+.btn_round {
+  font-size: 20px;
+  border-radius: 50px;
+  padding: 9px 11px;
+}
+.add-chat {
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  display: flex;
+}
+.add-chat__input {
+  padding: 10px;
+  font-weight: 400;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+.add-chat__btn:hover,
+.add-chat__btn:focus {
+  border: 0;
+}
+.dialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  display: block;
+}
+.dialog__content {
+  width: 550px;
+  position: relative;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff;
+}
