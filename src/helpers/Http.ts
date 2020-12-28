@@ -24,7 +24,7 @@ export class Http {
         this._url = url;
     }
 
-    request = <Data>(url: string, { method, data, headers }: Options<Data>) => {
+    request = <Data, Response>(url: string, { method, data, headers }: Options<Data>): Promise<Response> => {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open(method, url);
@@ -59,35 +59,35 @@ export class Http {
             }
         });
     };
-    get = <Data>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
+    get = <Data, Response>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
         const { data } = options;
         let requestUrl = this.buildUrl(url);
         requestUrl = data ? `${requestUrl}?${queryString(data)}` : requestUrl;
 
         const requestParams = { ...options, method: METHODS.GET };
 
-        return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
+        return this.request<Data, Response>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
-    post = <Data>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
+    post = <Data, Response>(url: string, options: Omit<Options<Data>, 'method'> = {}) => {
         const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.POST };
 
-        return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
+        return this.request<Data, Response>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
-    put = <Data>(url: string, options: Omit<Options<Data>, 'method'>) => {
+    put = <Data, Response>(url: string, options: Omit<Options<Data>, 'method'>) => {
         const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.PUT };
 
-        return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
+        return this.request<Data, Response>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
-    delete = <Data>(url: string, options: Omit<Options<Data>, 'method'>) => {
+    delete = <Data, Response>(url: string, options: Omit<Options<Data>, 'method'>) => {
         const requestUrl = this.buildUrl(url);
         const requestParams = { ...postHeaders, ...options, method: METHODS.DELETE };
 
-        return this.request<Data>(requestUrl, requestParams).catch((error) => {throw(error)});
+        return this.request<Data, Response>(requestUrl, requestParams).catch((error) => {throw(error)});
     };
 
     buildUrl(url: string) {

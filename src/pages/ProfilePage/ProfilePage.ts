@@ -70,7 +70,7 @@ export class ProfilePage extends Block<ProfilePageProps> {
             const form = e.target as HTMLFormElement;
             const formData = new FormData(form);
 
-            userController.editAva(formData);
+            userController.editUserPic(formData);
         };
 
         const submitPass = (e: Event) => {

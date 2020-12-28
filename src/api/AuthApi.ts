@@ -18,11 +18,11 @@ export type User = {
 
 export class AuthApi {
     signup(user: RegistrationFormModel) {
-        return http.post<RegistrationFormModel>('/signup', {  data: user });
+        return http.post<RegistrationFormModel, void>('/signup', {  data: user });
     }
 
     signin(user: AuthFormModel) {
-        return http.post<AuthFormModel>('/signin', {  data: user });
+        return http.post<AuthFormModel, void>('/signin', {  data: user });
     }
 
     logout() {
@@ -30,6 +30,6 @@ export class AuthApi {
     }
 
     get(): Promise<User> {
-        return http.get('/user') as Promise<User>;
+        return http.get('/user');
     }
 }

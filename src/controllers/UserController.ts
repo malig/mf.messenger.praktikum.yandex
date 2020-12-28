@@ -42,7 +42,7 @@ export class UserController extends Controller<UserInitialState>{
         userApi.editPass(passFormModel);
     }
 
-    editAva(avaForm: FormData) {
-        userApi.editAva(avaForm).then((user) => this.setUser(user));
+    editUserPic(userPic: FormData) {
+        userApi.editUserPic(userPic).then((user) => this.setUser(user));
     }
 }

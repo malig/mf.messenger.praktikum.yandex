@@ -12,7 +12,7 @@ export type Chat = {
 
 export class ChatsApi {
     list(): Promise<Chat[]> {
-        return http.get(chatPath) as Promise<Chat[]>;
+        return http.get(chatPath);
     }
 
     create(title: string) {

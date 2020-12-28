@@ -18,18 +18,18 @@ export type User = {
 
 export class UserApi {
     get(userId: number): Promise<User> {
-        return http.get(`/${userId}`) as Promise<User>;
+        return http.get(`/${userId}`);
     }
 
     edit(profileFormModel: ProfileFormModel): Promise<User> {
-        return http.put(`/profile`, { data: profileFormModel}) as Promise<User>;
+        return http.put(`/profile`, { data: profileFormModel});
     }
 
     editPass(passFormModel: PassFormModel) {
         return http.put(`/password`, { data: passFormModel});
     }
 
-    editAva(avaForm: FormData): Promise<User> {
-        return http.put<FormData>(`/profile/avatar`, { data: avaForm, headers: {} }) as Promise<User>;
+    editUserPic(userPic: FormData): Promise<User> {
+        return http.put<FormData, User>(`/profile/avatar`, { data: userPic, headers: {} });
     }
 }
