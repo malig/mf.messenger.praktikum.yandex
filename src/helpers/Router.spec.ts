@@ -19,7 +19,7 @@ const createRouter = (selector: string, needNew = false) => {
     if (needNew) {
         Router.__instance = undefined as any;
     }
-    return new Router(selector);
+    return new Router(selector, '/');
 }
 
 describe('Routing', () => {

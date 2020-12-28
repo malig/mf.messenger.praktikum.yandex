@@ -8,6 +8,7 @@ import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage.js';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage.js';
 import { MessengerPage } from './pages/MessengerPage/MessengerPage.js';
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.js';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage.js';
 
 export enum PATH {
     ROOT = '/',
@@ -16,6 +17,7 @@ export enum PATH {
     PROFILE = '/profile',
     MESSENGER = '/messenger',
     ERROR = '/error',
+    NOT_FOUND = '/404',
 }
 
 const store = new Store();
@@ -30,7 +32,7 @@ store.init([
     userController
 ])
 
-export const router = new Router('.app');
+export const router = new Router('.app', PATH.NOT_FOUND);
 
 router
     .use(PATH.ROOT, AuthPage)
@@ -39,6 +41,7 @@ router
     .use(PATH.PROFILE, ProfilePage)
     .use(PATH.MESSENGER, MessengerPage)
     .use(PATH.ERROR, ErrorPage)
+    .use(PATH.NOT_FOUND, NotFoundPage)
     .start();
 
 authController.checkAuth();

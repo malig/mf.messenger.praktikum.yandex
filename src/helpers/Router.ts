@@ -48,8 +48,9 @@ export class Router {
     routes: Route[] = []
     _currentRoute: Route | undefined
     _domSelector: string | undefined
+    _notFoundUrl: string | undefined
 
-    constructor(domSelector: string) {
+    constructor(domSelector: string, notFoundUrl: string) {
         if (Router.__instance) {
             return Router.__instance;
         }
@@ -57,6 +58,7 @@ export class Router {
         this.routes = [];
         this.history = window.history;
         this._domSelector = domSelector;
+        this._notFoundUrl = notFoundUrl;
 
         Router.__instance = this;
     }
@@ -84,7 +86,12 @@ export class Router {
         }
 
         this._currentRoute = route;
-        route?.render();
+
+        if (route) {
+            route.render();
+        } else if (this._notFoundUrl) {
+            this.go(this._notFoundUrl);
+        }
     }
 
     getRoute(url: string) {
