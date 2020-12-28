@@ -2,7 +2,7 @@ import { Controller } from '../helpers/Controller.js';
 import { UserApi, User } from '../api/UserApi.js';
 import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel.js';
 import { PassFormModel } from '../pages/ProfilePage/PassFormModel.js';
-import { host } from '../api/BaseApi.js';
+import { HOST } from '../consts.js';
 
 type UserInitialState = {
     user?: User
@@ -27,7 +27,7 @@ export class UserController extends Controller<UserInitialState>{
     }
 
     setUser(user:User) {
-        this.dispatch(ACTION.SET_USER, {...user, avatar: `${host}${user.avatar}` });
+        this.dispatch(ACTION.SET_USER, {...user, avatar: `${HOST}${user.avatar}` });
     }
 
     getUser(userId: number) {

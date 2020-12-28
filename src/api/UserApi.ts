@@ -1,9 +1,9 @@
 import { Http } from '../helpers/Http.js';
-import { BaseApi, baseUrl } from './BaseApi.js';
+import { BASE_URL } from '../consts.js';
 import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel.js';
 import { PassFormModel } from '../pages/ProfilePage/PassFormModel.js';
 
-const http = new Http(`${baseUrl}/user`);
+const http = new Http(`${BASE_URL}/user`);
 
 export type User = {
     id: number,
@@ -16,7 +16,7 @@ export type User = {
     avatar: string
 }
 
-export class UserApi extends BaseApi {
+export class UserApi {
     get(userId: number): Promise<User> {
         return http.get(`/${userId}`) as Promise<User>;
     }

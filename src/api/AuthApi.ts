@@ -1,9 +1,9 @@
 import { Http } from '../helpers/Http.js';
-import { BaseApi, baseUrl } from './BaseApi.js';
+import { BASE_URL } from '../consts.js';
 import { RegistrationFormModel } from '../pages/RegistrationPage/RegistrationFormModel.js';
 import { AuthFormModel } from '../pages/AuthPage/AuthFormModel.js';
 
-const http = new Http(`${baseUrl}/auth`);
+const http = new Http(`${BASE_URL}/auth`);
 
 export type User = {
     id: number,
@@ -16,7 +16,7 @@ export type User = {
     avatar: string
 }
 
-export class AuthApi extends BaseApi {
+export class AuthApi {
     signup(user: RegistrationFormModel) {
         return http.post<RegistrationFormModel>('/signup', {  data: user });
     }

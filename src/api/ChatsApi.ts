@@ -1,8 +1,8 @@
 import { Http } from '../helpers/Http.js';
-import { BaseApi, baseUrl } from './BaseApi.js';
+import { BASE_URL } from '../consts.js';
 
 const chatPath = '/chats';
-const http = new Http(`${baseUrl}`);
+const http = new Http(`${BASE_URL}`);
 
 export type Chat = {
     id: number,
@@ -10,7 +10,7 @@ export type Chat = {
     avatar: string
 }
 
-export class ChatsApi extends BaseApi {
+export class ChatsApi {
     list(): Promise<Chat[]> {
         return http.get(chatPath) as Promise<Chat[]>;
     }
