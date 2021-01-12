@@ -1,5 +1,5 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './Button.tpl.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './Button.tpl';
 
 type ButtonProps = {
     title?: string;

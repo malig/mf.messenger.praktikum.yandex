@@ -1,4 +1,4 @@
-import { Store } from './Store.js';
+import { Store } from './Store';
 
 type Reducers<T> = Record<string, (state: T, payload: any) => T>
 

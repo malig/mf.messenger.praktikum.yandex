@@ -1,5 +1,5 @@
-import { EventBus } from './EventBus.js';
-import { TplCompiler, ITplCompiler } from './TplCompiler.js';
+import { EventBus } from './EventBus';
+import { TplCompiler, ITplCompiler } from './TplCompiler';
 
 interface IMeta<Props> {
     tpl: string;

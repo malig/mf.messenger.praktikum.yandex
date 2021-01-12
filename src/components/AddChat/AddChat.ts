@@ -1,6 +1,6 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './AddChat.tpl.js';
-import { Button } from '../Button/Button.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './AddChat.tpl';
+import { Button } from '../Button/Button';
 
 type SearchProps = {
     onChange: (title: string) => void,

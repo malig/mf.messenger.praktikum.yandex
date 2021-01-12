@@ -1,14 +1,14 @@
-import { Router } from './helpers/Router.js';
-import { Store } from './helpers/Store.js';
-import { ChatsController } from './controllers/ChatsController.js';
-import { AuthController } from './controllers/AuthController.js';
-import { UserController } from './controllers/UserController.js';
-import { AuthPage } from './pages/AuthPage/AuthPage.js';
-import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage.js';
-import { ProfilePage } from './pages/ProfilePage/ProfilePage.js';
-import { MessengerPage } from './pages/MessengerPage/MessengerPage.js';
-import { ErrorPage } from './pages/ErrorPage/ErrorPage.js';
-import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage.js';
+import { Router } from './helpers/Router';
+import { Store } from './helpers/Store';
+import { ChatsController } from './controllers/ChatsController';
+import { AuthController } from './controllers/AuthController';
+import { UserController } from './controllers/UserController';
+import { AuthPage } from './pages/AuthPage/AuthPage';
+import { RegistrationPage } from './pages/RegistrationPage/RegistrationPage';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage';
+import { MessengerPage } from './pages/MessengerPage/MessengerPage';
+import { ErrorPage } from './pages/ErrorPage/ErrorPage';
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
 
 export enum PATH {
     ROOT = '/',

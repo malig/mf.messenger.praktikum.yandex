@@ -1,9 +1,9 @@
-import { Block } from '../../helpers/Block.js';
-import { Validation } from '../../helpers/Validation.js';
-import { tpl } from './AuthPage.tpl.js';
-import { Button } from '../../components/Button/Button.js';
-import { router, PATH, authController } from '../../app.js';
-import { AuthFormModel } from './AuthFormModel.js';
+import { Block } from '../../helpers/Block';
+import { Validation } from '../../helpers/Validation';
+import { tpl } from './AuthPage.tpl';
+import { Button } from '../../components/Button/Button';
+import { router, PATH, authController } from '../../app';
+import { AuthFormModel } from './AuthFormModel';
 
 type AuthPageProps = {
     title: string;

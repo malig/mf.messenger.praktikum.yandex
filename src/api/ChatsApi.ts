@@ -1,5 +1,5 @@
-import { Http } from '../helpers/Http.js';
-import { BASE_URL } from '../consts.js';
+import { Http } from '../helpers/Http';
+import { BASE_URL } from '../consts';
 
 const chatPath = '/chats';
 const http = new Http(`${BASE_URL}`);

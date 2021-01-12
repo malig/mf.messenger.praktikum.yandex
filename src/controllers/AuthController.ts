@@ -1,8 +1,8 @@
-import { Controller } from '../helpers/Controller.js';
-import { AuthApi, User } from '../api/AuthApi.js';
-import { PATH, router } from '../app.js';
-import { AuthFormModel } from '../pages/AuthPage/AuthFormModel.js';
-import { RegistrationFormModel } from '../pages/RegistrationPage/RegistrationFormModel.js';
+import { Controller } from '../helpers/Controller';
+import { AuthApi, User } from '../api/AuthApi';
+import { PATH, router } from '../app';
+import { AuthFormModel } from '../pages/AuthPage/AuthFormModel';
+import { RegistrationFormModel } from '../pages/RegistrationPage/RegistrationFormModel';
 
 type AuthInitialState = {
     user?: User

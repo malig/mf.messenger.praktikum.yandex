@@ -1,7 +1,7 @@
-import { Http } from '../helpers/Http.js';
-import { BASE_URL } from '../consts.js';
-import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel.js';
-import { PassFormModel } from '../pages/ProfilePage/PassFormModel.js';
+import { Http } from '../helpers/Http';
+import { BASE_URL } from '../consts';
+import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel';
+import { PassFormModel } from '../pages/ProfilePage/PassFormModel';
 
 const http = new Http(`${BASE_URL}/user`);
 

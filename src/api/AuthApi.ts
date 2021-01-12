@@ -1,7 +1,7 @@
-import { Http } from '../helpers/Http.js';
-import { BASE_URL } from '../consts.js';
-import { RegistrationFormModel } from '../pages/RegistrationPage/RegistrationFormModel.js';
-import { AuthFormModel } from '../pages/AuthPage/AuthFormModel.js';
+import { Http } from '../helpers/Http';
+import { BASE_URL } from '../consts';
+import { RegistrationFormModel } from '../pages/RegistrationPage/RegistrationFormModel';
+import { AuthFormModel } from '../pages/AuthPage/AuthFormModel';
 
 const http = new Http(`${BASE_URL}/auth`);
 

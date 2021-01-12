@@ -1,11 +1,11 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './MessengerPage.tpl.js';
-import { Button } from '../../components/Button/Button.js';
-import { AddChat } from '../../components/AddChat/AddChat.js';
-import { ChatList } from '../../components/ChatList/ChatList.js';
-import { Dropdown } from '../../components/Dropdown/Dropdown.js';
-import {chatsController, router, PATH, authController} from '../../app.js';
-import { Chat } from '../../api/ChatsApi.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './MessengerPage.tpl';
+import { Button } from '../../components/Button/Button';
+import { AddChat } from '../../components/AddChat/AddChat';
+import { ChatList } from '../../components/ChatList/ChatList';
+import { Dropdown } from '../../components/Dropdown/Dropdown';
+import {chatsController, router, PATH, authController} from '../../app';
+import { Chat } from '../../api/ChatsApi';
 
 type MessengerPageProps = {
     chats: Chat[];

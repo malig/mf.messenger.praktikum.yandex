@@ -1,9 +1,9 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './RegistrationPage.tpl.js';
-import { Button } from '../../components/Button/Button.js';
-import { Validation } from '../../helpers/Validation.js';
-import { authController } from '../../app.js';
-import { RegistrationFormModel } from './RegistrationFormModel.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './RegistrationPage.tpl';
+import { Button } from '../../components/Button/Button';
+import { Validation } from '../../helpers/Validation';
+import { authController } from '../../app';
+import { RegistrationFormModel } from './RegistrationFormModel';
 
 type RegistrationPageProps = {
     title: string;

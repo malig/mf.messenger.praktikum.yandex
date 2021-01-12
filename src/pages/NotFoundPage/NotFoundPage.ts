@@ -1,5 +1,5 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './NotFoundPage.tpl.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './NotFoundPage.tpl';
 
 type NotFoundPageProps = {
     title: string;

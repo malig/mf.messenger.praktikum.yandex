@@ -1,6 +1,6 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './ChatList.tpl.js';
-import { Chat } from '../../api/ChatsApi.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './ChatList.tpl';
+import { Chat } from '../../api/ChatsApi';
 
 type ChatListProps = {
     chats: Chat[],

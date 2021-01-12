@@ -1,6 +1,6 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './Search.tpl.js';
-import { Button } from '../Button/Button.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './Search.tpl';
+import { Button } from '../Button/Button';
 
 type SearchProps = {
     button?: string;

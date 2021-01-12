@@ -1,10 +1,10 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './ProfilePage.tpl.js';
-import { Validation } from '../../helpers/Validation.js'
-import { Button } from '../../components/Button/Button.js';
-import { router, PATH, authController, userController } from '../../app.js';
-import { ProfileFormModel } from './ProfileFormModel.js';
-import { PassFormModel } from './PassFormModel.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './ProfilePage.tpl';
+import { Validation } from '../../helpers/Validation'
+import { Button } from '../../components/Button/Button';
+import { router, PATH, authController, userController } from '../../app';
+import { ProfileFormModel } from './ProfileFormModel';
+import { PassFormModel } from './PassFormModel';
 
 type ProfilePageProps = {
     title: string;

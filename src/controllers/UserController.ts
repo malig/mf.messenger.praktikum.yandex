@@ -1,8 +1,8 @@
-import { Controller } from '../helpers/Controller.js';
-import { UserApi, User } from '../api/UserApi.js';
-import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel.js';
-import { PassFormModel } from '../pages/ProfilePage/PassFormModel.js';
-import { HOST } from '../consts.js';
+import { Controller } from '../helpers/Controller';
+import { UserApi, User } from '../api/UserApi';
+import { ProfileFormModel } from '../pages/ProfilePage/ProfileFormModel';
+import { PassFormModel } from '../pages/ProfilePage/PassFormModel';
+import { HOST } from '../consts';
 
 type UserInitialState = {
     user?: User

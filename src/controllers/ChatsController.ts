@@ -1,5 +1,5 @@
-import { Controller } from '../helpers/Controller.js';
-import { ChatsApi, Chat } from '../api/ChatsApi.js';
+import { Controller } from '../helpers/Controller';
+import { ChatsApi, Chat } from '../api/ChatsApi';
 
 type ChatInitialState = {
     chats:  Chat[]

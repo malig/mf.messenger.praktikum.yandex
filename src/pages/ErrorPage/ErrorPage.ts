@@ -1,5 +1,5 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './ErrorPage.tpl.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './ErrorPage.tpl';
 
 type ErrorPageProps = {
     title: string;

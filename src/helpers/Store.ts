@@ -1,5 +1,5 @@
-import { EventBus } from './EventBus.js'
-import { Controller } from './Controller.js';
+import { EventBus } from './EventBus'
+import { Controller } from './Controller';
 
 type BaseController = Controller<any>;
 type Reducers = Record<string, <T, P>(state: T, payload: P) => T>

@@ -1,5 +1,5 @@
-import { Block } from '../../helpers/Block.js';
-import { tpl } from './Dialog.tpl.js';
+import { Block } from '../../helpers/Block';
+import { tpl } from './Dialog.tpl';
 
 type DialogProps = {
     title: string;
