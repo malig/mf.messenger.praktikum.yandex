@@ -13,4 +13,4 @@ For all checking, you can run:
 <br>
 Open http://localhost:777 to view it in the browser.
 
-[Demo](https://andrienko.herokuapp.com/messenger)
+[Demo](https://andrienko.herokuapp.com)
