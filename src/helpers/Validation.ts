@@ -1,48 +1,51 @@
-
 export enum Rule {
     Required = 'required',
     Email = 'email',
     Number = 'number',
     Pass = 'pass',
     Phone = 'phone',
-    LessThanThree = 'lessThanThree'
+    LessThanThree = 'lessThanThree',
 }
 
 interface IRules {
-    [key: string]: string[]
+    [key: string]: string[];
 }
 
 const defaultRules = {
-    'first_name': [Rule.Required, Rule.LessThanThree],
-    'second_name': [Rule.Required, Rule.LessThanThree],
-    'display_name': [],
-    'login': [Rule.Required],
-    'email': [Rule.Email],
-    'password': [],
-    'phone': [Rule.Phone]
+    first_name: [Rule.Required, Rule.LessThanThree],
+    second_name: [Rule.Required, Rule.LessThanThree],
+    display_name: [],
+    login: [Rule.Required],
+    email: [Rule.Email],
+    password: [],
+    phone: [Rule.Phone],
 };
 
 export class Validation {
     _check = {
         [Rule.Required]: (value: string) => value !== '',
-        [Rule.Number]: (value: string) => isNaN(Number(value)),
-        [Rule.Email]: (value: string) => /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/.test(value),
-        [Rule.Pass]: (value: string) => /^[0-9a-z]{6,}$/.test(value),
-        [Rule.Phone]: (value: string) => /^\d[\d() -]{4,14}\d$/.test(value),
-        [Rule.LessThanThree]: (value: string) => value.length >= 3
-    }
+        [Rule.Number]: (value: string) => Number.isNaN(Number(value)),
+        [Rule.Email]: (value: string) => /^([\w.-])+@([\w.-])+\.([A-Za-z]{2,4})$/.test(value),
+        [Rule.Pass]: (value: string) => /^[\da-z]{6,}$/.test(value),
+        [Rule.Phone]: (value: string) => /^\d[\d ()-]{4,14}\d$/.test(value),
+        [Rule.LessThanThree]: (value: string) => value.length >= 3,
+    };
 
-    _rules: IRules
+    _rules: IRules;
 
     constructor(rules: IRules = defaultRules) {
         this._rules = rules;
     }
 
     validate(inputList: HTMLInputElement[] | HTMLFormControlsCollection) {
-        return [].reduce.call(inputList, (count, input: HTMLInputElement) => {
-            const errors = this._validate(input);
-            return Number(count) + errors.length;
-        }, 0);
+        return [].reduce.call(
+            inputList,
+            (count, input: HTMLInputElement) => {
+                const errors = this._validate(input);
+                return Number(count) + errors.length;
+            },
+            0,
+        );
     }
 
     _validate(input: HTMLInputElement) {
@@ -93,7 +96,7 @@ export class Validation {
                         break;
                     default:
                 }
-            })
+            });
 
             this._addMessages(input, errors);
         }
@@ -106,7 +109,7 @@ export class Validation {
             if (node.className === 'error-list') {
                 node.remove();
             }
-        })
+        });
     }
 
     _addMessages(input: HTMLInputElement, errors: string[]) {
@@ -117,8 +120,8 @@ export class Validation {
             const li = document.createElement('li');
             li.textContent = error;
             li.className = 'error-list__item';
-            ul.appendChild(li);
-        })
+            ul.append(li);
+        });
 
         input.parentNode?.append(ul);
     }

@@ -1,11 +1,16 @@
 # y-workshop
+
 ## Download Scripts
 
 In the project directory, you can run:
 
 ### `npm start`
 
-<br>
-Open http://localhost:4000 to view it in the browser.
+For all checking, you can run:
 
-[Demo](https://affectionate-nightingale-4cac7c.netlify.app/)
+### `npm run check`
+
+<br>
+Open http://localhost:777 to view it in the browser.
+
+[Demo](https://andrienko.herokuapp.com/messenger)

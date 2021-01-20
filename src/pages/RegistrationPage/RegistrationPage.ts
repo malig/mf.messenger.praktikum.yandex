@@ -2,14 +2,14 @@ import { Block } from '../../helpers/Block';
 import { tpl } from './RegistrationPage.tpl';
 import { Button } from '../../components/Button/Button';
 import { Validation } from '../../helpers/Validation';
-import { authController } from '../../app';
+import { authController } from '../../index';
 import { RegistrationFormModel } from './RegistrationFormModel';
 
-type RegistrationPageProps = {
+type RegistrationPageProperties = {
     title: string;
-}
+};
 
-export class RegistrationPage extends Block<RegistrationPageProps> {
+export class RegistrationPage extends Block<RegistrationPageProperties> {
     static EVENTS = {
         ...Block.EVENTS,
         BLUR: 'blur',
@@ -25,16 +25,16 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
         this._children = {
             button: new Button({
                 title: 'Зарегистрироваться',
-                className: 'full-width'
-            })
-        }
+                className: 'full-width',
+            }),
+        };
 
         const validator = new Validation();
-        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
-        const submit = (e: Event) => {
-            e.preventDefault();
+        const validate = (event: Event) => validator.validate([event.target as HTMLInputElement]);
+        const submit = (event: Event) => {
+            event.preventDefault();
 
-            const form = e.target as HTMLFormElement;
+            const form = event.target as HTMLFormElement;
             const errorsCount = validator.validate(form.elements);
 
             if (!errorsCount) {
@@ -60,5 +60,4 @@ export class RegistrationPage extends Block<RegistrationPageProps> {
             submitEventName: this.uniq(RegistrationPage.EVENTS.SUBMIT),
         });
     }
-
 }

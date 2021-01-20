@@ -1,16 +1,16 @@
 import { Block } from '../../helpers/Block';
 import { tpl } from './NotFoundPage.tpl';
 
-type NotFoundPageProps = {
+type NotFoundPageProperties = {
     title: string;
-    code: number
-}
+    code: number;
+};
 
-export class NotFoundPage extends Block<NotFoundPageProps> {
+export class NotFoundPage extends Block<NotFoundPageProperties> {
     constructor() {
         super(tpl, {
             title: 'Такой страницы не существует',
-            code: 404
+            code: 404,
         });
     }
 }

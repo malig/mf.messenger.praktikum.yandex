@@ -1,20 +1,19 @@
-
 export type Event = string;
 
 export type Listeners = {
-    [key: string]: (<T extends any[]>(...args: T)=>void)[]
-}
+    [key: string]: (<T extends any[]>(...arguments_: T) => void)[];
+};
 
-export type Callback<Args> = (...args: Args[]) => void
+export type Callback<Arguments> = (...arguments_: Arguments[]) => void;
 
 export class EventBus {
-    listeners: Listeners
+    listeners: Listeners;
 
     constructor() {
         this.listeners = {};
     }
 
-    on<Args>(event: Event, callback: Callback<Args>) {
+    on<Arguments>(event: Event, callback: Callback<Arguments>) {
         if (!this.listeners[event]) {
             this.listeners[event] = [];
         }
@@ -22,22 +21,20 @@ export class EventBus {
         this.listeners[event].push(callback);
     }
 
-    off<Args>(event: Event, callback: Callback<Args>) {
-        const listeners = this.listeners[event]
+    off<Arguments>(event: Event, callback: Callback<Arguments>) {
+        const listeners = this.listeners[event];
 
         if (listeners) {
-            this.listeners[event] = listeners.filter(
-                listener => listener !== callback
-            );
+            this.listeners[event] = listeners.filter((listener) => listener !== callback);
         }
     }
 
-    emit<Args>(event: Event, ...args: Args[]) {
-        const listeners = this.listeners[event]
+    emit<Arguments>(event: Event, ...arguments_: Arguments[]) {
+        const listeners = this.listeners[event];
 
         if (listeners) {
-            listeners.forEach(function(listener) {
-                listener(...args);
+            listeners.forEach((listener) => {
+                listener(...arguments_);
             });
         }
     }

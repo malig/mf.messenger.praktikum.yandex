@@ -1,18 +1,20 @@
 {
-  "compileOnSave": true,
-  "compilerOptions": {
-    "rootDir": "src",
-    "target": "es6",
-    "declaration": false,
-    "strictNullChecks": true,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "alwaysStrict": true,
-    "lib": ["dom", "es6", "es2017"],
-    "outDir": "static",
-    "moduleResolution": "node",
-    "strict": true
-  }
+    "compileOnSave": true,
+    "compilerOptions": {
+        "rootDir": "src",
+        "target": "es6",
+        "declaration": false,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "alwaysStrict": true,
+        "lib": ["dom", "es6", "es2017"],
+        "outDir": "static",
+        "moduleResolution": "node",
+        "strict": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "include": ["src"]
 }

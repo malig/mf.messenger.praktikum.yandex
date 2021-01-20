@@ -2,11 +2,13 @@ import { Block } from '../../helpers/Block';
 import { tpl } from './Dropdown.tpl';
 import { Button } from '../Button/Button';
 
-type DropdownProps = {
-    button?: string;
-}
+import './Dropdown.less';
 
-export class Dropdown extends Block<DropdownProps> {
+type DropdownProperties = {
+    button?: string;
+};
+
+export class Dropdown extends Block<DropdownProperties> {
     constructor() {
         super(tpl, {});
     }
@@ -17,12 +19,12 @@ export class Dropdown extends Block<DropdownProps> {
                 faIco: 'fa-plus',
                 className: 'btn_ico',
             }),
-        }
+        };
     }
 
     render(): string {
         return this.compile({
-            button: this._children?.button.render()
+            button: this._children?.button.render(),
         });
     }
 }

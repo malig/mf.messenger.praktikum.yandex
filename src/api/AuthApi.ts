@@ -6,30 +6,34 @@ import { AuthFormModel } from '../pages/AuthPage/AuthFormModel';
 const http = new Http(`${BASE_URL}/auth`);
 
 export type User = {
-    id: number,
-    first_name: string,
-    second_name: string,
-    display_name: string,
-    login: string,
-    email: string,
-    phone: string,
-    avatar: string
-}
+    id: number;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    login: string;
+    email: string;
+    phone: string;
+    avatar: string;
+};
 
 export class AuthApi {
-    signup(user: RegistrationFormModel) {
-        return http.post<RegistrationFormModel, void>('/signup', {  data: user });
-    }
+    signup = (user: RegistrationFormModel) => {
+        return http.post<RegistrationFormModel, void>('/signup', { data: user });
+    };
 
-    signin(user: AuthFormModel) {
-        return http.post<AuthFormModel, void>('/signin', {  data: user });
-    }
+    signin = (user: AuthFormModel) => {
+        return http
+            .post<AuthFormModel, void>('/signin', { data: user })
+            .catch(() => {
+                alert('Неверный логин или пароль');
+            });
+    };
 
-    logout() {
+    logout = () => {
         return http.post('/logout');
-    }
+    };
 
-    get(): Promise<User> {
+    get = (): Promise<User> => {
         return http.get('/user');
-    }
+    };
 }

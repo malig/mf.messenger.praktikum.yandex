@@ -6,4 +6,4 @@ export const tpl = `
             <i class="fa {{ faIco }}" aria-hidden="true"></i>
         {{/if}}
     </button>
-`
+`;

@@ -2,21 +2,27 @@ import { Block } from '../../helpers/Block';
 import { tpl } from './AddChat.tpl';
 import { Button } from '../Button/Button';
 
-type SearchProps = {
-    onChange: (title: string) => void,
-    changeTitleEventName?: string
-}
+import './AddChat.less';
 
-export class AddChat extends Block<SearchProps> {
+type SearchProperties = {
+    onAdd: (title: string) => void;
+    changeTitleEventName?: string;
+};
+
+export class AddChat extends Block<SearchProperties> {
     static EVENTS = {
         ...Block.EVENTS,
         CHANGE_TITLE: 'change-title',
     };
 
-    title: string = ''
+    private title = '';
 
-    constructor(props: SearchProps) {
-        super(tpl, props);
+    constructor(properties: SearchProperties) {
+        super(tpl, properties);
+    }
+
+    clear() {
+        this.title = '';
     }
 
     componentDidMount() {
@@ -25,10 +31,15 @@ export class AddChat extends Block<SearchProps> {
                 faIco: 'fa-plus',
                 className: 'btn_ico add-chat__btn zero-border',
                 onClick: () => {
-                    this.props.onChange(this.title);
-                }
+                    if (this.title.trim()) {
+                        this.props.onAdd(this.title);
+                        this.clear();
+                    } else {
+                        alert('Введи название чата');
+                    }
+                },
             }),
-        }
+        };
 
         window.eventBus.on(this.uniq(AddChat.EVENTS.CHANGE_TITLE), (e: Event) => {
             this.title = (e.target as HTMLInputElement).value;

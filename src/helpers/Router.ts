@@ -1,20 +1,23 @@
 import { Block } from './Block';
 
-type RouteProps = {
-    domSelector: string
-}
+type RouteProperties = {
+    domSelector: string;
+};
 
-type BlockClass = new () => Block<any>
+type BlockClass = new () => Block<any>;
 
 class Route {
-    _url: string
-    _pageClass: BlockClass
-    _page: InstanceType<BlockClass> | null= null
-    _props: RouteProps
+    _url: string;
 
-    constructor(url: string, page: BlockClass, props: RouteProps) {
+    _pageClass: BlockClass;
+
+    _page: InstanceType<BlockClass> | null = null;
+
+    _props: RouteProperties;
+
+    constructor(url: string, page: BlockClass, properties: RouteProperties) {
         this._url = url;
-        this._props = props;
+        this._props = properties;
         this._pageClass = page;
     }
 
@@ -24,10 +27,8 @@ class Route {
         const root = document.querySelector(this._props.domSelector);
         if (root) {
             root.innerHTML = '';
-            root.appendChild(this._page.getContent());
+            root.append(this._page.getContent());
         }
-
-        return;
     }
 
     destroy() {
@@ -42,13 +43,17 @@ class Route {
 }
 
 export class Router {
-    static __instance: InstanceType<typeof Router>
+    static __instance: InstanceType<typeof Router>;
 
-    history: History | undefined
-    routes: Route[] = []
-    _currentRoute: Route | undefined
-    _domSelector: string | undefined
-    _notFoundUrl: string | undefined
+    history: History | undefined;
+
+    routes: Route[] = [];
+
+    _currentRoute: Route | undefined;
+
+    _domSelector: string | undefined;
+
+    _notFoundUrl: string | undefined;
 
     constructor(domSelector: string, notFoundUrl: string) {
         if (Router.__instance) {
@@ -95,7 +100,7 @@ export class Router {
     }
 
     getRoute(url: string) {
-        return this.routes.find(route => route.match(url));
+        return this.routes.find((route) => route.match(url));
     }
 
     back() {

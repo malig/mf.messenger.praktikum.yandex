@@ -1,41 +1,41 @@
-@import "src/less/variables";
+@import '../../../src/less/variables.less';
 
 .dropdown {
-  position: relative;
+    position: relative;
 
-  &__menu-wrapper {
-    position: absolute;
-    right: 0;
-    top: 25px;
-    z-index: 1;
-    display: none;
-  }
+    &__menu-wrapper {
+        position: absolute;
+        right: 0;
+        top: 25px;
+        z-index: 1;
+        display: none;
+    }
 
-  &:hover &__menu-wrapper {
-    display: block;
-  }
+    &:hover &__menu-wrapper {
+        display: block;
+    }
 
-  &__menu {
-    border: 1px solid #ced4da;
-    margin-top: 30px;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
-    background-color: @main-light-bg-color;
-  }
+    &__menu {
+        border: 1px solid #ced4da;
+        margin-top: 30px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 15px 20px 0 rgba(0, 0, 0, 0.06);
+        background-color: @main-light-bg-color;
+    }
 
-  &__menu-item {
-    list-style-type: none;
-    white-space: nowrap;
-    padding: 5px;
-  }
+    &__menu-item {
+        list-style-type: none;
+        white-space: nowrap;
+        padding: 5px;
+    }
 
-  &__menu-item:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
+    &__menu-item:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
 
-  &__menu-ico {
-    margin-right: 10px;
-  }
+    &__menu-ico {
+        margin-right: 10px;
+    }
 }

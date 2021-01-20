@@ -10,4 +10,4 @@ export const tpl = `
             <h1 class="error">{{ code }}</h1>
         </article>
     </section>
-`
+`;

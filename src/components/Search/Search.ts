@@ -2,11 +2,11 @@ import { Block } from '../../helpers/Block';
 import { tpl } from './Search.tpl';
 import { Button } from '../Button/Button';
 
-type SearchProps = {
+type SearchProperties = {
     button?: string;
-}
+};
 
-export class Search extends Block<SearchProps> {
+export class Search extends Block<SearchProperties> {
     constructor() {
         super(tpl, {});
     }
@@ -17,12 +17,12 @@ export class Search extends Block<SearchProps> {
                 faIco: 'fa-search',
                 className: 'btn_ico input-btn__btn zero-border',
             }),
-        }
+        };
     }
 
     render(): string {
         return this.compile({
-            button: this._children?.button.render()
+            button: this._children?.button.render(),
         });
     }
 }

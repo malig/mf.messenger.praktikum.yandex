@@ -1,11 +1,13 @@
 import { Block } from '../../helpers/Block';
 import { tpl } from './Dialog.tpl';
 
-type DialogProps = {
-    title: string;
-}
+import './Dialog.less';
 
-export class Dialog extends Block<DialogProps> {
+type DialogProperties = {
+    title: string;
+};
+
+export class Dialog extends Block<DialogProperties> {
     constructor() {
         super(tpl, {
             title: 'Вы уверены, что хотите удалить этот чат?',

@@ -70,4 +70,4 @@ export const tpl = `
             </div>
         </form>        
     </section>
-`
+`;

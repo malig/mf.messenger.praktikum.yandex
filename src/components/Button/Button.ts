@@ -1,23 +1,25 @@
 import { Block } from '../../helpers/Block';
 import { tpl } from './Button.tpl';
 
-type ButtonProps = {
+import './Button.less';
+
+type ButtonProperties = {
     title?: string;
     onClick?: (e: Event) => void;
     className?: string;
     faIco?: string;
-}
+};
 
-export class Button extends Block<ButtonProps> {
+export class Button extends Block<ButtonProperties> {
     static EVENTS = {
         ...Block.EVENTS,
         CLICK: 'click',
     };
 
-    constructor(props: ButtonProps) {
-        super(tpl, props);
+    constructor(properties: ButtonProperties) {
+        super(tpl, properties);
 
-        const { onClick = () => {} } = props;
+        const { onClick = () => {} } = properties;
         window.eventBus.on(this.uniq(Button.EVENTS.CLICK), onClick);
     }
 
@@ -28,7 +30,7 @@ export class Button extends Block<ButtonProps> {
             title,
             faIco,
             className: `btn ${className}`.trim(),
-            clickEventName: this.uniq(Button.EVENTS.CLICK)
+            clickEventName: this.uniq(Button.EVENTS.CLICK),
         });
     }
 }

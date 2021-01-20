@@ -1,36 +1,44 @@
 import { EventBus } from './EventBus';
 import { TplCompiler, ITplCompiler } from './TplCompiler';
 
-interface IMeta<Props> {
+interface IMeta<Properties> {
     tpl: string;
-    props: Props;
+    props: Properties;
 }
 
-type Children = {[key: string]: Block<any>};
-
-export class Block<Props extends Object> {
+export class Block<Properties extends Object> {
     static EVENTS = {
         INIT: 'init',
         FLOW_CDM: 'flow:component-did-mount',
         FLOW_RENDER: 'flow:render',
-        FLOW_CDU: 'low:component-did-update'
+        FLOW_CDU: 'flow:component-did-update',
+        FLOW_READY: 'flow:component-is-ready',
     };
 
-    _id: number
-    _meta: IMeta<Props>;
+    _id: number;
+
+    _meta: IMeta<Properties>;
+
     _element: HTMLElement;
-    _children: Children = {} as Children;
+
+    _children: { [key: string]: Block<any> } = {};
 
     tplCompiler: () => ITplCompiler;
-    eventBus: () => EventBus;
-    props: Props;
 
-    constructor(tpl: string, props: Props, tplCompiler: ITplCompiler = new TplCompiler()) {
-        this._id = new Date().getTime();
-        this._meta = { tpl, props };
+    eventBus: () => EventBus;
+
+    props: Properties;
+
+    constructor(
+        tpl: string,
+        properties: Properties,
+        tplCompiler: ITplCompiler = new TplCompiler(),
+    ) {
+        this._id = Date.now();
+        this._meta = { tpl, props: properties };
         this._element = this._createDocumentElement('div');
 
-        this.props = this._makePropsProxy(props);
+        this.props = this._makePropsProxy(properties);
 
         const eventBus = new EventBus();
         this.eventBus = () => eventBus;
@@ -46,6 +54,7 @@ export class Block<Props extends Object> {
         eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        eventBus.on(Block.EVENTS.FLOW_READY, this._componentIsReady.bind(this));
     }
 
     init() {
@@ -58,33 +67,34 @@ export class Block<Props extends Object> {
 
     _render() {
         this._element.innerHTML = this.render();
+        this.eventBus().emit(Block.EVENTS.FLOW_READY);
     }
 
-    render(props?: Props): string {
-        return this.compile(props || this.props);
+    render(properties?: Properties): string {
+        return this.compile(properties || this.props);
     }
 
-    compile<T>(props: T): string {
-        return this.tplCompiler().compile(this._meta.tpl, props);
+    compile<T>(properties: T): string {
+        return this.tplCompiler().compile(this._meta.tpl, properties);
     }
 
     getContent(): HTMLElement {
         return this.element;
     }
 
-    _makePropsProxy(props: Props) {
+    _makePropsProxy(properties: Properties) {
         const self = this;
 
-        return new Proxy<Props>(props, {
-            set(target, prop, value) {
-                target[prop as keyof typeof target] = value;
+        return new Proxy<Properties>(properties, {
+            set(target, property, value) {
+                target[property as keyof typeof target] = value;
 
                 self.eventBus().emit(Block.EVENTS.FLOW_CDU, self.props, target);
 
-                return true
+                return true;
             },
             deleteProperty() {
-                throw Error('Нет доступа');
+                throw new Error('Нет доступа');
             },
         });
     }
@@ -94,28 +104,32 @@ export class Block<Props extends Object> {
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
 
-    componentDidMount() {
+    componentDidMount() {}
 
-    };
+    _componentIsReady() {
+        this.componentIsReady();
+    }
 
-    _componentDidUpdate(oldProps: Props, newProps: Props) {
-        const response = this.componentDidUpdate(oldProps, newProps);
+    componentIsReady() {}
+
+    _componentDidUpdate(oldProperties: Properties, newProperties: Properties) {
+        const response = this.componentDidUpdate(oldProperties, newProperties);
 
         if (response) {
             this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
         }
     }
 
-    componentDidUpdate(oldProps: Props, newProps: Props) {
-        return oldProps !== newProps;
+    componentDidUpdate(oldProperties: Properties, newProperties: Properties) {
+        return oldProperties !== newProperties;
     }
 
-    setProps = (nextProps: {[key: string]: any}) => {
-        if (!nextProps) {
+    setProps = (nextProperties: { [key: string]: any }) => {
+        if (!nextProperties) {
             return;
         }
 
-        Object.assign(this.props, nextProps);
+        Object.assign(this.props, nextProperties);
     };
 
     get element(): HTMLElement {
@@ -126,11 +140,9 @@ export class Block<Props extends Object> {
         return this._id;
     }
 
-    uniq(str: string) {
-        return `${str}:${this.id}`;
+    uniq(string: string) {
+        return `${string}:${this.id}`;
     }
 
-    destroy() {
-
-    }
+    destroy() {}
 }

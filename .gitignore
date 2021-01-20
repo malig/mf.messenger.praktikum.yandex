@@ -6,6 +6,5 @@
 # custom
 .idea
 /dist
-/static/*.css
-/static/**/*.js
-/static/**/*.map
+/static
+cd

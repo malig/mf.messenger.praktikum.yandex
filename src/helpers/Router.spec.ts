@@ -1,13 +1,13 @@
-// @ts-ignore
-import jsdom from 'mocha-jsdom';
 import { assert } from 'chai';
 import { Router } from './Router';
 
+const jsdom = require('mocha-jsdom');
+
 class FirstBlockClass {
-    destroyed = false
+    destroyed = false;
 
     destroy() {
-        this.destroyed = true
+        this.destroyed = true;
     }
 }
 const FirstBlock = () => FirstBlockClass as any;
@@ -20,7 +20,7 @@ const createRouter = (selector: string, needNew = false) => {
         Router.__instance = undefined as any;
     }
     return new Router(selector, '/');
-}
+};
 
 describe('Routing', () => {
     jsdom({ url: 'http://localhost' });
@@ -36,7 +36,7 @@ describe('Routing', () => {
 
     it('should return empty routes if domSelector is empty string', (done) => {
         const router = createRouter('', true);
-        router.use('/path', FirstBlock())
+        router.use('/path', FirstBlock());
 
         assert.equal(router.routes.length, 0);
         done();
@@ -45,8 +45,8 @@ describe('Routing', () => {
     it('should have routes with given url', (done) => {
         const router = createRouter('selector', true);
 
-        router.use('/first', FirstBlock())
-        router.use('/second', SecondBlock())
+        router.use('/first', FirstBlock());
+        router.use('/second', SecondBlock());
 
         assert.equal(router.routes[0]._url, '/first');
         assert.equal(router.routes[1]._url, '/second');
@@ -57,10 +57,10 @@ describe('Routing', () => {
         const router = createRouter('selector', true);
 
         const firstBlock = FirstBlock();
-        router.use('/first', firstBlock)
+        router.use('/first', firstBlock);
 
         const secondBlock = SecondBlock();
-        router.use('/second', secondBlock)
+        router.use('/second', secondBlock);
 
         assert.equal(router.routes[0]._pageClass, firstBlock);
         assert.equal(router.routes[1]._pageClass, secondBlock);
@@ -70,8 +70,8 @@ describe('Routing', () => {
     it('should start with empty current rout', (done) => {
         const router = createRouter('selector', true);
 
-        router.use('/first', FirstBlock())
-        router.use('/second', SecondBlock())
+        router.use('/first', FirstBlock());
+        router.use('/second', SecondBlock());
 
         assert.equal(router._currentRoute, undefined);
         done();
@@ -80,14 +80,14 @@ describe('Routing', () => {
     it('should select right route', (done) => {
         const router = createRouter('selector', true);
 
-        router.use('/first', FirstBlock())
-        router.use('/second', SecondBlock())
+        router.use('/first', FirstBlock());
+        router.use('/second', SecondBlock());
 
-        router.go('/first')
+        router.go('/first');
         assert.equal(router._currentRoute?._url, '/first');
         assert.equal(router.location, '/first');
 
-        router.go('/second')
+        router.go('/second');
         assert.equal(router._currentRoute?._url, '/second');
         assert.equal(router.location, '/second');
 
@@ -115,13 +115,13 @@ describe('Routing', () => {
     it('should destroy prev page', (done) => {
         const router = createRouter('selector', true);
 
-        router.use('/first', FirstBlock())
-        router.use('/second', SecondBlock())
+        router.use('/first', FirstBlock());
+        router.use('/second', SecondBlock());
 
-        router.go('/first')
-        router.go('/second')
+        router.go('/first');
+        router.go('/second');
 
-        const firstBlock = router.getRoute('/first')?._page as any
+        const firstBlock = router.getRoute('/first')?._page as any;
 
         assert.equal(firstBlock.destroyed, true);
 

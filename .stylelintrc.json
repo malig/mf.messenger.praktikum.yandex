@@ -1,0 +1,9 @@
+{
+    "extends": "stylelint-config-standard",
+    "ignoreFiles": ["static/*"],
+    "rules": {
+        "indentation": [
+            4
+        ]
+    }
+}

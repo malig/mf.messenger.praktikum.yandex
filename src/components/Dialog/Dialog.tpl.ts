@@ -11,4 +11,4 @@ export const tpl = `
             </div>
         </div>
     </section>    
-`
+`;

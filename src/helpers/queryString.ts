@@ -3,10 +3,12 @@ type PlainObject<T = unknown> = {
 };
 
 function isPlainObject(value: unknown): value is PlainObject {
-    return typeof value === 'object'
-        && value !== null
-        && value.constructor === Object
-        && Object.prototype.toString.call(value) === '[object Object]';
+    return (
+        typeof value === 'object' &&
+        value !== null &&
+        value.constructor === Object &&
+        Object.prototype.toString.call(value) === '[object Object]'
+    );
 }
 
 function isArrayOrObject(value: unknown): value is [] | PlainObject {
@@ -17,15 +19,15 @@ function getKey(key: string, parentKey?: string) {
     return parentKey ? `${parentKey}[${key}]` : key;
 }
 
-function getParams(data: PlainObject | [], parentKey?: string) {
-    return Object.entries(data).reduce<[string, string][]>((acc, [key, value]) => {
+function getParameters(data: PlainObject | [], parentKey?: string) {
+    return Object.entries(data).reduce<[string, string][]>((accumulator, [key, value]) => {
         if (isArrayOrObject(value)) {
-            acc.push(...getParams(value, getKey(key, parentKey)));
+            accumulator.push(...getParameters(value, getKey(key, parentKey)));
         } else {
-            acc.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
+            accumulator.push([getKey(key, parentKey), encodeURIComponent(String(value))]);
         }
 
-        return acc;
+        return accumulator;
     }, []);
 }
 
@@ -34,5 +36,7 @@ export function queryString(data: unknown) {
         throw new Error('input must be an object');
     }
 
-    return getParams(data).map(arr => arr.join('=')).join('&');
+    return getParameters(data)
+        .map((array) => array.join('='))
+        .join('&');
 }

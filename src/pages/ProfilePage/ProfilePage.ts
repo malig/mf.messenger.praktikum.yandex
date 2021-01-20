@@ -1,23 +1,25 @@
 import { Block } from '../../helpers/Block';
 import { tpl } from './ProfilePage.tpl';
-import { Validation } from '../../helpers/Validation'
+import { Validation } from '../../helpers/Validation';
 import { Button } from '../../components/Button/Button';
-import { router, PATH, authController, userController } from '../../app';
+import { router, PATH, authController, userController } from '../../index';
 import { ProfileFormModel } from './ProfileFormModel';
 import { PassFormModel } from './PassFormModel';
 
-type ProfilePageProps = {
-    title: string;
-    first_name: string,
-    second_name: string,
-    display_name: string,
-    login: string,
-    email: string,
-    phone: string,
-    avatar: string
-}
+import './ProfilePage.less';
 
-export class ProfilePage extends Block<ProfilePageProps> {
+type ProfilePageProperties = {
+    title: string;
+    first_name: string;
+    second_name: string;
+    display_name: string;
+    login: string;
+    email: string;
+    phone: string;
+    avatar: string;
+};
+
+export class ProfilePage extends Block<ProfilePageProperties> {
     static EVENTS = {
         ...Block.EVENTS,
         BLUR: 'blur',
@@ -36,7 +38,7 @@ export class ProfilePage extends Block<ProfilePageProps> {
             login: '',
             email: '',
             phone: '',
-            avatar: ''
+            avatar: '',
         });
     }
 
@@ -48,12 +50,12 @@ export class ProfilePage extends Block<ProfilePageProps> {
             cancelButton: new Button({
                 faIco: 'fa-times',
                 className: 'btn_ico',
-                onClick: () => router.go(PATH.MESSENGER)
+                onClick: () => router.go(PATH.MESSENGER),
             }),
-        }
+        };
 
         const validator = new Validation();
-        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
+        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement]);
         const submitUser = (e: Event) => {
             e.preventDefault();
             const form = e.target as HTMLFormElement;
@@ -89,7 +91,7 @@ export class ProfilePage extends Block<ProfilePageProps> {
 
         userController.on(({ user }) => {
             this.setProps({ ...user });
-        })
+        });
 
         const currentUser = authController.getCurrentUser();
 
@@ -100,14 +102,15 @@ export class ProfilePage extends Block<ProfilePageProps> {
 
     render(): string {
         const { saveButton, cancelButton, savePassButton, saveAvaButton } = this._children;
-        const { title,
+        const {
+            title,
             first_name,
             second_name,
             display_name,
             login,
             email,
             phone,
-            avatar
+            avatar,
         } = this.props;
 
         return this.compile({

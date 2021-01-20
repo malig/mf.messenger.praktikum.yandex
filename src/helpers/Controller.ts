@@ -1,13 +1,15 @@
 import { Store } from './Store';
 
-type Reducers<T> = Record<string, (state: T, payload: any) => T>
+type Reducers<T> = Record<string, (state: T, payload: any) => T>;
 
 export class Controller<InitialState> {
-    initialState: InitialState = {} as InitialState
-    reducers: Reducers<InitialState> = {} as Reducers<InitialState>
-    namespace: string
+    initialState: InitialState = {} as InitialState;
 
-    protected store: Store
+    reducers: Reducers<InitialState> = {} as Reducers<InitialState>;
+
+    namespace: string;
+
+    protected store: Store;
 
     constructor(store: Store, namespace: string) {
         this.store = store;
@@ -15,7 +17,7 @@ export class Controller<InitialState> {
     }
 
     on(callback: (state: InitialState) => void) {
-        this.store.eventBus.on(Store.EVENTS.CHANGE, callback);
+        this.store.eventBus.on(`${Store.EVENTS.CHANGE}${this.namespace}`, callback);
     }
 
     protected dispatch<Payload>(action: string, payload: Payload) {

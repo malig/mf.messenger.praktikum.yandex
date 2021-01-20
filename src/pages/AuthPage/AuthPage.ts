@@ -2,14 +2,14 @@ import { Block } from '../../helpers/Block';
 import { Validation } from '../../helpers/Validation';
 import { tpl } from './AuthPage.tpl';
 import { Button } from '../../components/Button/Button';
-import { router, PATH, authController } from '../../app';
+import { router, PATH, authController } from '../../index';
 import { AuthFormModel } from './AuthFormModel';
 
-type AuthPageProps = {
+type AuthPageProperties = {
     title: string;
-}
+};
 
-export class AuthPage extends Block<AuthPageProps> {
+export class AuthPage extends Block<AuthPageProperties> {
     static EVENTS = {
         ...Block.EVENTS,
         BLUR: 'blur',
@@ -18,7 +18,7 @@ export class AuthPage extends Block<AuthPageProps> {
     };
 
     constructor() {
-        super(tpl,{ title: 'Авторизация' });
+        super(tpl, { title: 'Авторизация' });
     }
 
     componentDidMount() {
@@ -26,12 +26,12 @@ export class AuthPage extends Block<AuthPageProps> {
             button: new Button({ title: 'Войти' }),
             registrationButton: new Button({
                 title: 'Регистрация',
-                onClick: () => router.go(PATH.REGISTRATION)
-            })
-        }
+                onClick: () => router.go(PATH.REGISTRATION),
+            }),
+        };
 
         const validator = new Validation();
-        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement])
+        const validate = (e: Event) => validator.validate([e.target as HTMLInputElement]);
         const submit = (e: Event) => {
             e.preventDefault();
 
@@ -47,7 +47,7 @@ export class AuthPage extends Block<AuthPageProps> {
         window.eventBus.on(this.uniq(AuthPage.EVENTS.BLUR), validate);
         window.eventBus.on(this.uniq(AuthPage.EVENTS.FOCUS), validate);
         window.eventBus.on(this.uniq(AuthPage.EVENTS.SUBMIT), submit);
-    };
+    }
 
     render(): string {
         const { button, registrationButton } = this._children;
