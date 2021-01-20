@@ -1,1 +1,0 @@
-{"version":3,"file":"NotFoundPage.js","sourceRoot":"","sources":["../../../src/pages/NotFoundPage/NotFoundPage.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,wBAAwB,CAAC;AAC/C,OAAO,EAAE,GAAG,EAAE,MAAM,uBAAuB,CAAC;AAO5C,MAAM,OAAO,YAAa,SAAQ,KAAwB;IACtD;QACI,KAAK,CAAC,GAAG,EAAE;YACP,KAAK,EAAE,8BAA8B;YACrC,IAAI,EAAE,GAAG;SACZ,CAAC,CAAC;IACP,CAAC;CACJ"}
