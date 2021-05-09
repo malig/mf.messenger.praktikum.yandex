@@ -70,6 +70,6 @@
     },
     "dependencies": {
         "babel-plugin-transform-class-properties": "6.24.1",
-        "handlebars": "4.7.6"
+        "handlebars": "4.7.7"
     }
 }
